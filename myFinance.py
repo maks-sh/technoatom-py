@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 class ValueException(Exception):
     def __init__(self, expression, message):
+        super().__init__(message)
         self.expression = expression
-        self.message = message
         # как по хорошему делать исключения?
 
 class Charge(object):
@@ -10,7 +12,7 @@ class Charge(object):
             raise ValueException(Exception, "Пожалуйста, введите правильное значение")
         else:
             self.__value = value # Когда переменная должна быть с двумя "_", а когда с одним? #
-    # Надо ли размещать блок, что ниже, в ветку else? #
+
     value = property()
     @value.getter
     def value(self):
@@ -18,6 +20,10 @@ class Charge(object):
     @value.setter
     def value(self, inpValue):
         raise ValueException(Exception, "Изменять значение операции запрещено!")
+
+    def __repr__(self):
+        return str(self.value)
+
 
 class Account(object):
     def __init__(self, total = 0):
@@ -34,6 +40,8 @@ class Account(object):
         else:
             self.total += file.value
             self.charges.append(file)
+
+
 
     def __iter__(self):
         for element in self.charges:
@@ -56,7 +64,7 @@ print(myAccount.total, myAccount.charges)
 
 breakfast = Charge(-300.11)
 print(breakfast.value)
-#breakfast.value = 12
+
 print(breakfast.value)
 
 salary = Charge(5000)
