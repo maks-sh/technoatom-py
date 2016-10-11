@@ -4,14 +4,13 @@ class ValueException(Exception):
     def __init__(self, expression, message):
         super().__init__(message)
         self.expression = expression
-        # как по хорошему делать исключения?
 
 class Charge(object):
     def __init__(self, value):
         if type(value) == str or round(value, 2) - value != 0:
             raise ValueException(Exception, "Пожалуйста, введите правильное значение")
         else:
-            self.__value = value # Когда переменная должна быть с двумя "_", а когда с одним? #
+            self.__value = value
 
     value = property()
     @value.getter
@@ -46,17 +45,6 @@ class Account(object):
     def __iter__(self):
         for element in self.charges:
             yield element
-
-# Почему в таком исполнении не нужен метод __next__?
-
-#    def __next__(self):
-#        if self.current > len(self.charges):
-#            self.current = 0
-#            raise StopIteration
-#        next = self.current
-#        self.current += 1
-#        return next
-
 
 myAccount = Account(1000)
 print(myAccount.total, myAccount.charges)
