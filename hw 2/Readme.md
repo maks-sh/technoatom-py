@@ -2,12 +2,12 @@
 ========================
 Первый способ:
 --------------------------
-1. Введите требуемые значения url и port в файле [config.conf](./config.conf)
-2. Запустите скрипт
+1 Введите требуемые значения url и port в файле [config.conf](./config.conf)
+2 Запустите скрипт
 ```bash
 $ python wsgi.py
 ```
-3. Откройте браузер и введите в адресный строке localhost:port/ в соответствии с данными из [config.conf](./config.conf)
+3 Откройте браузер и введите в адресный строке localhost:port/ в соответствии с данными из [config.conf](./config.conf)
 
 Второй способ:
 --------------------------
@@ -15,12 +15,12 @@ $ python wsgi.py
 ```bash
 $ pip install requests
 ```
-1. Введите требуемые значения url и port в файле [config.conf](./config.conf)
-2. Запустите скрипт
+1 Введите требуемые значения url и port в файле [config.conf](./config.conf)
+2 Запустите скрипт
 ```bash
 $ python wsgi.py
 ```
-3. Запустите скрипт
+3 Запустите скрипт
 ```bash
 $ python test.py
 ```
