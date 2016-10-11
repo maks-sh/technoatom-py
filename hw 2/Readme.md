@@ -3,6 +3,7 @@
 Первый способ:
 --------------------------
 1 Введите требуемые значения url и port в файле [config.conf](./config.conf)
+
 2 Запустите скрипт
 ```bash
 $ python wsgi.py
@@ -16,6 +17,7 @@ $ python wsgi.py
 $ pip install requests
 ```
 1 Введите требуемые значения url и port в файле [config.conf](./config.conf)
+
 2 Запустите скрипт
 ```bash
 $ python wsgi.py
