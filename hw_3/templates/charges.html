@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Выписка по счету | Домашняя бухгалтерия</title>
+  <meta name="description" content="Проект Дмоашняя Бухгалтерия для курса от Мейл.ру">
+  <meta name="author" content="Maksim Shevchenko" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    {% load static %}
+  <link rel="stylesheet" media="screen" href="{% static "css/reset.css"%}">
+  <link rel="stylesheet" media="screen" href="{% static "css/charges.css"%}">
+</head>
+<body>
+
+<header id="particles-js">
+  <div class="header__wrapper">
+      <a href="/" class="logo">
+          <p class="logo__text">Домашняя бухгалтерия</p>
+          <img class="logo__img" src="{% static "img/atom_logo.png"%}">
+      </a>
+
+
+    <nav class="nav">
+      <ul>
+        <li class="nav__elem"><a class="nav__ref ref__first" href="#">Пункт меню 1</a></li>
+        <li class="nav__elem"><a class="nav__ref" href="#">Пункт меню 2</a></li>
+        <li class="nav__elem"><a class="nav__ref ref__last" href="#">Пункт меню 3</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+    <h1 class="main__title">Выписка по Вашему счету:</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="l-t-corner">Номер счета</th>
+                <th>Дата и время совершения операции</th>
+                <th>Дата списания по счету</th>
+                <th>Тип операции</th>
+                <th>Описание операции</th>
+                <th>Сумма в валюте счета</th>
+                <th class="r-t-corner">Комисиия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>22.09.2016 17:36:57</td>
+                <td>22.09.2016</td>
+                <td>ATM</td>
+                <td>KASHIRSKOE SH., 31</td>
+                <td>-300.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>22.09.2016</td>
+                <td>22.09.2016</td>
+                <td>ПОПОЛНЕНИЕ</td>
+                <td>Перечисление заработной платы  по реестру  за сентябрь 2016г.</td>
+                <td>3000.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>21.09.2016 07:30:36</td>
+                <td>21.09.2016</td>
+                <td>RETAIL</td>
+                <td>KLYON, MOSCOW, RUS</td>
+                <td>-809.54</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>20.09.2016 15:30:11</td>
+                <td>20.09.2016</td>
+                <td>ATM</td>
+                <td>KASHIRSKOE SH., 31</td>
+                <td>-10000.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>19.09.2016 12:13:34</td>
+                <td>19.09.2016</td>
+                <td>RETAIL</td>
+                <td>BURGER KING 0216, MOSCOW, RUS</td>
+                <td>-412.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>14.09.2016 16:03:32</td>
+                <td>14.09.2016</td>
+                <td>RETAIL</td>
+                <td>BURGER KING 0216, MOSCOW, RUS</td>
+                <td>-207.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>11.09.2016 09:02:59</td>
+                <td>20.09.2016</td>
+                <td>ATM</td>
+                <td>KASHIRSKOE SH., 31</td>
+                <td>-250.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>677579XXXXXX8464</td>
+                <td>09.09.2016 20:32:39</td>
+                <td>20.09.2016</td>
+                <td>ATM</td>
+                <td>KASHIRSKOE SH., 31</td>
+                <td>2500.00</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<!-- scripts -->
+<script src="{% static "js/particles.js"%}"></script>
+<script src="{% static "js/app.js"%}"></script>
+
+</body>
+</html>
