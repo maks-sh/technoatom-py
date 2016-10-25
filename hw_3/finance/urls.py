@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
-from finance.views import index, charges
+from finance.views import index, charges_static, charges
 
 urlpatterns = [
-    url(r'^$', index),
-    url(r'^charges/$', charges),
+    url(r'^$', index, name='index'),
+    url(r'^charges-static/$', charges_static, name='static_table'),
+    url(r'^charges/$', charges, name='charges'),
 ]
