@@ -53,9 +53,10 @@ canvas{
 }
 
 .nav__elem {
-  float: left;
-  margin-right: 0;
-  margin-bottom: 2px;
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
 }
 
 .nav__ref {

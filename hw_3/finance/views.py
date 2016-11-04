@@ -17,31 +17,32 @@ def charges_static(request):
     return response
 
 
-def charges(request):
+def charges_form(request):
     if request.method == 'POST':
         info = 'Форма заполнена некорректно'
         form = ChargeForm(request.POST)
         if form.is_valid():
             info = 'Все верно'
             print(form.cleaned_data)
+        else:
+            print(form.errors)
     else:
         info = 'Заполните, пожалуйста, данные для транзакции'
         form = ChargeForm()
-    transactions = [i for i in random_transactions()]
-    transactions_pol = [i for i in transactions if i[1] > 0]
-    transactions_otr = [i for i in transactions if i[1] < 0]
     return render(
-        request, 'charges.html',
+        request, 'charges_form.html',
         {'form': form,
          'info': info,
-         'transactions_pol': transactions_pol,
-         'transactions_otr': transactions_otr,
          }
     )
 
 
-    # template = loader.get_template('charges.html')
-    # context = RequestContext(request, {
-    #
-    # })
-    # return HttpResponse(template.render(context))
+def charges_random(request):
+    transactions = [i for i in random_transactions()]
+    transactions_pol = [i for i in transactions if i[1] > 0]
+    transactions_otr = [i for i in transactions if i[1] < 0]
+    return render(
+        request, 'charges_random.html',
+        {'transactions_pol': transactions_pol,
+         'transactions_otr': transactions_otr}
+    )
