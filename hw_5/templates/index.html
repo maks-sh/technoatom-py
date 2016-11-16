@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Главная | Домашняя бухгалтерия</title>
+  <meta name="description" content="Проект Дмоашняя Бухгалтерия для курсов от Мейл.ру">
+  <meta name="author" content="Maksim Shevchenko" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    {% load static %}
+  <link rel="stylesheet" media="screen" href="{% static "css/reset.css"%}">
+  <link rel="stylesheet" media="screen" href="{% static "css/index.css"%}">
+</head>
+<body>
+
+<div id="particles-js">
+  <div class="main">
+    <h1 class="main__title">Домашняя бухгалтерия <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <p class="main__desc">Сайт, предназначенный для ведения учёта и анализа личных финансов.<br>Узнайте состояние Вашего счета прямо сейчас:</p>
+    <nav class="main__nav nav">
+      <ul>
+        <li class="nav__elem"><a class="nav__ref" href="/create-account/">Выписка по счету</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- scripts -->
+<script src="{% static "js/particles.js"%}"></script>
+<script src="{% static "js/app.js"%}"></script>
+
+</body>
+</html>

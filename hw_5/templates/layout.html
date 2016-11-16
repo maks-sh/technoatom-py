@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <meta name="description" content="Проект Домашняя Бухгалтерия для курса от Мейл.ру">
+    <meta name="author" content="Maksim Shevchenko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" media="screen" href="{% static "css/reset.css"%}">
+    <link rel="stylesheet" media="screen" href="{% static "css/layout.css"%}">
+
+    {% block css %}{% endblock %}
+
+</head>
+<body>
+<header id="particles-js">
+    <div class="header__wrapper">
+        <a href="/" class="logo">
+            <p class="logo__text">Домашняя бухгалтерия</p>
+            <img class="logo__img" src="{% static "img/atom_logo.png"%}">
+        </a>
+
+
+        <nav class="nav">
+            <ul>
+{#                <li class="nav__elem"><a class="nav__ref ref__first" href="/create-account/">Создание счета</a></li>#}
+                <li class="nav__elem"><a class="nav__ref ref__first"  href="/info/">Просмотр счета</a></li>
+                <li class="nav__elem"><a class="nav__ref ref__last" href="/add/">Создание транзакции</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="wrapper">
+
+    {% block content %}{% endblock %}
+
+</main>
+<script src="{% static "js/particles.js"%}"></script>
+<script src="{% static "js/app.js"%}"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

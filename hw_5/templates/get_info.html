@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Выписка по счету | Домашняя бухгалтерия
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/charges_random.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main__transactions transactions">
+    {% if err != 0 %}
+        <h3 class="transaction__title">{{ err }}</h3>
+    {% elif transactions_pol|length != 0 %}
+        <h3 class="transaction__title">Положительные транзакции</h3>
+        {% for transaction in transactions_pol %}
+            {% if forloop.first %}
+            <ol class="spisok">
+            {% endif %}
+                <li>
+                    {{ transaction.date }} начисление: {{ transaction.value }}
+                </li>
+            {% if forloop.last %}
+            </ol>
+            {% endif %}
+        {% endfor %}
+    {% elif transactions_otr|length != 0 %}
+        <h3 class="transaction__title">Отрицательные транзакции</h3>
+        {% for transaction in transactions_otr %}
+            {% if forloop.first %}
+            <ol class="spisok">
+            {% endif %}
+                <li>
+                    {{ transaction.date }} списание: {{ transaction.value }}
+                </li>
+            {% if forloop.last %}
+            </ol>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h3 class="transaction__title">По данному счету не было выполнено ни одной транзакции</h3>
+
+    {% endif %}
+    </div>
+{% endblock %}
