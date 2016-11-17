@@ -41,7 +41,8 @@ def charges_form(request):
             info = 'Все верно'
             charge = form.save(commit=False)
             try:
-                charge.account = Account.objects.latest('id_acc')
+                # значение account - последнее записанное в бд. Почему-то с all().reverse() не работает поэтому костыль
+                charge.account = Account.objects.reverse().all()[len(Account.objects.reverse().all()) - 1]
                 charge.save()
             except Warning:
                 err = 'Не создано ни одного счета!'
@@ -64,7 +65,9 @@ def get_info(request):
     transactions_pol = []
     transactions_otr = []
     try:
-        charges = Charge.objects.filter(account=Account.objects.latest('id_acc'))
+        # значение account - последнее записанное в бд. Почему-то с all().reverse() не работает поэтому костыль
+        charges = Charge.objects.filter(
+            account=Account.objects.reverse().all()[len(Account.objects.reverse().all()) - 1].id_acc)
         transactions_pol = [i for i in charges if i.value > 0]
         transactions_otr = [i for i in charges if i.value < 0]
     except Warning:
