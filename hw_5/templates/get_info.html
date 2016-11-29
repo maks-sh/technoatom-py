@@ -12,9 +12,10 @@
 
 {% block content %}
     <div class="main__transactions transactions">
-    {% if err != 0 %}
-        <h3 class="transaction__title">{{ err }}</h3>
-    {% elif transactions_pol|length != 0 %}
+    {% for transaction in data %}
+        {{ transaction.value }}
+    {% endfor %}
+    {% if transactions_pol|length != 0 %}
         <h3 class="transaction__title">Положительные транзакции</h3>
         {% for transaction in transactions_pol %}
             {% if forloop.first %}
@@ -27,23 +28,20 @@
             </ol>
             {% endif %}
         {% endfor %}
-        {% if transactions_otr|length != 0 %}
-            <h3 class="transaction__title">Отрицательные транзакции</h3>
-            {% for transaction in transactions_otr %}
-                {% if forloop.first %}
-                <ol class="spisok">
-                {% endif %}
-                    <li>
-                        {{ transaction.date }} списание: {{ transaction.value }}
-                    </li>
-                {% if forloop.last %}
-                </ol>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        <h3 class="transaction__title">По данному счету не было выполнено ни одной транзакции</h3>
-
+    {% endif %}
+    {% if transactions_otr|length != 0 %}
+        <h3 class="transaction__title">Отрицательные транзакции</h3>
+        {% for transaction in transactions_otr %}
+            {% if forloop.first %}
+            <ol class="spisok">
+            {% endif %}
+                <li>
+                    {{ transaction.date }} списание: {{ transaction.value }}
+                </li>
+            {% if forloop.last %}
+            </ol>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     </div>
 {% endblock %}

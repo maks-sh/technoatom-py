@@ -11,10 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if err != 0 %}
-        <h3 class="transaction__title">{{ err }}</h3>
-    {% else %}
-    <form action="{% url 'add_charges' %}" method="post" class="main__form form">
+    <form action="{% url 'add_charges' acc%}" method="post" class="main__form form">
         <div class="form__header">
             <h3 class="form__title">
                 Добавление транзакции
@@ -38,7 +35,7 @@
                 </ul>
             </div>
         {% endif %}
-    {% endif %}
+
         <button class="form__submit" type="submit">Отправить</button>
     </form>
 {% endblock %}

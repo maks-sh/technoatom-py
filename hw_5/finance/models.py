@@ -8,8 +8,6 @@ class Account(models.Model):
 
     class Meta:
         db_table = 'Accounts'
-        get_latest_by = 'id_acc'
-
 
 
 class Charge(models.Model):

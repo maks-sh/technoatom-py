@@ -4,7 +4,8 @@
 from django.shortcuts import render, render_to_response, redirect
 from .forms import ChargeForm, AccountForm
 from .models import Account, Charge
-
+from .generator import random_transactions
+# Create your views here.
 
 def index(request):
     response = render_to_response('index.html', {})
@@ -12,12 +13,17 @@ def index(request):
 
 
 def create_account(request):
+
     if request.method == 'POST':
         form = AccountForm(request.POST)
         if form.is_valid():
+
             account = form.save()
-            acc = account.id_acc
-            return redirect('/info/')
+            return redirect ('get_info',account.id_acc)
+           # return render(
+           #    request, 'get_info.html',
+           #     {'acc':account.id_acc}
+           # )
         else:
             info = 'Форма заполнена некорректно'
             print(form.data)
@@ -32,50 +38,45 @@ def create_account(request):
     )
 
 
-def charges_form(request):
-    err = 0
+def charges_form(request, acc):
     if request.method == 'POST':
         info = 'Форма заполнена некорректно'
         form = ChargeForm(request.POST)
+
         if form.is_valid():
-            info = 'Все верно'
-            charge = form.save(commit=False)
-            try:
-                # значение account - последнее записанное в бд. Почему-то с all().reverse() не работает поэтому костыль
-                charge.account = Account.objects.reverse().all()[len(Account.objects.reverse().all()) - 1]
-                charge.save()
-            except Warning:
-                err = 'Не создано ни одного счета!'
+            a=Account.objects.get(id_acc=acc)
+            charg = form.save(commit=False)
+            tot=a.total+charg.value
+            if tot<0:
+                info='Недостаточно средств для проведения транзакции'
+            else:
+                info = 'Данные отправлены'
+                charg.account = a
+                charg.save()
+                a.total=tot
+                a.save()
+            # print(form.cleaned_data)
         else:
             print(form.data)
     else:
-        info = 'Заполните, пожалуйста, данные для транзакции'
+        info ='Заполните, пожалуйста, данные для транзакции'
         form = ChargeForm()
     return render(
         request, 'charges_form.html',
         {'form': form,
          'info': info,
-         'err': err
-         }
+         'acc':acc}
     )
 
 
-def get_info(request):
-    err = 0
-    transactions_pol = []
-    transactions_otr = []
-    try:
-        # значение account - последнее записанное в бд. Почему-то с all().reverse() не работает поэтому костыль
-        charges = Charge.objects.filter(
-            account=Account.objects.reverse().all()[len(Account.objects.reverse().all()) - 1].id_acc)
-        transactions_pol = [i for i in charges if i.value > 0]
-        transactions_otr = [i for i in charges if i.value < 0]
-    except Warning:
-        err = 'Не создано ни одного счета!'
+def get_info(request, acc):
+    charges = Charge.objects.filter(account=acc)
+    transactions_pol = [i for i in charges if i.value > 0]
+    transactions_otr = [i for i in charges if i.value < 0]
 
     return render(
         request, 'get_info.html',
         {'transactions_pol': transactions_pol,
          'transactions_otr': transactions_otr,
-         'err': err}
+         'acc':acc}
     )

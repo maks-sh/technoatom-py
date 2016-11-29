@@ -29,7 +29,6 @@ class ChargeForm(ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         print('charge:', self.cleaned_data.get('date'))
-        print('account data:', self.data)
         value_date_cln = self.cleaned_data.get('date')
         value_value_cln = self.cleaned_data.get('value')
         value_value = self.data['value']
@@ -100,18 +99,6 @@ class AccountForm(ModelForm):
                                  )
         }
 
-
-        # date = fields.DateField(
-        #     label='Дата:',
-        #     required=True,
-        #     widget=widgets.DateInput(
-        #         attrs={'class': 'form___input',
-        #                'type': 'date',
-        #                'placeholder': 'гггг-мм-дд'
-        #                }
-        #     )
-        # )
-        #
 
     def clean(self):
         cleaned_data = super().clean()
