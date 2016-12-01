@@ -1,0 +1,18 @@
+.amount {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    margin: 10px 0;
+}
+
+.amount__title {
+    color: #333333;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.amount__icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}

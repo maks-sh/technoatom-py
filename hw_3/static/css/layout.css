@@ -3,7 +3,7 @@ canvas{
     vertical-align: bottom;
 }
 
-header {
+.header {
     height: 80px;
     -webkit-box-shadow: 0 8px 6px -6px #d6d6d6;
        -moz-box-shadow: 0 8px 6px -6px #d6d6d6;

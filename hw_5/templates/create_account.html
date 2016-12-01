@@ -35,7 +35,22 @@
                 </ul>
             </div>
         {% endif %}
-
+{#        <div class="form__errors">#}
+{#                <ul>#}
+{#                {% for er_r in err %}#}
+{#                    <li class="error__elem">{{ er_r }}</li>#}
+{#                {% endfor %}#}
+{#                </ul>#}
+{#            </div>#}
         <button class="form__submit" type="submit">Создать счет</button>
     </form>
+{% endblock %}
+
+{% block scripts %}
+{#    todo исправить костыль#}
+    <script>
+{#        var err = JSON.parse({{ err }}.encode('utf-8'), escape_html=True);#}
+        str = '{{ err }}'.encode('unicode');
+        console.log(str);
+    </script>
 {% endblock %}

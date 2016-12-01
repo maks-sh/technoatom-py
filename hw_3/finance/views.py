@@ -46,3 +46,23 @@ def charges_random(request):
         {'transactions_pol': transactions_pol,
          'transactions_otr': transactions_otr}
     )
+
+def j_rest(request):
+    response = render_to_response('j_restaurant.html', {})
+    return response
+
+def j_login(request):
+    response = render_to_response('j_login.html', {})
+    return response
+
+def j_register(request):
+    response = render_to_response('j_register.html', {})
+    return response
+
+def j_register_rest(request):
+    response = render_to_response('j_register-rest.html', {})
+    return response
+
+def j_booking(request):
+    response = render_to_response('j_booking.html', {})
+    return response

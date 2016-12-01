@@ -1,3 +1,4 @@
+# coding: utf8
 from django.forms import Form, fields, widgets, ModelForm, DateInput, Textarea, DateField, DecimalField, NumberInput
 from finance.models import Account, Charge
 from django.core.exceptions import ValidationError
@@ -102,7 +103,6 @@ class AccountForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        print('account data:', self)
         value_total = self.data['total']
         value_id_acc = self.data['id_acc']
         # print(value_total, value_id_acc)
@@ -110,21 +110,21 @@ class AccountForm(ModelForm):
         def check(field, name):
             """Попытка реализовать проверку для Safari"""
             if field == '':
-                err = 'Введите значение в поле "{}"'.format(name)
+                err = u'Введите значение в поле "{}"'.format(name)
                 return self.add_error(None, err)
             if name == 'Сумма':
                 p = re.compile(r'^[+-]?(\d*)(?:\.(\d*))?$')
                 result = p.match(field)
 
                 if result is None:
-                    err = 'Формат поля "{}": 12345.67 '.format(name)
+                    err = u'Формат поля "{}": 12345.67 '.format(name)
                     return self.add_error(None, err)
                 else:
                     if result.groups()[0] is not None and len(result.groups()[0]) > 5:
-                        err = 'Максимальная сумма - 99999.99'
+                        err = u'Максимальная сумма - 99999.99'
                         self.add_error(None, err)
                     if result.groups()[1] is not None and len(result.groups()[1]) > 2:
-                        err = 'После точки должно быть не более двух цифровых знаков'
+                        err = u'После точки должно быть не более двух цифровых знаков'
                         self.add_error(None, err)
                     return
 

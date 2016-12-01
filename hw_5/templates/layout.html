@@ -19,17 +19,18 @@
 <body>
 <header id="particles-js">
     <div class="header__wrapper">
+
+
         <a href="/" class="logo">
             <p class="logo__text">Домашняя бухгалтерия</p>
             <img class="logo__img" src="{% static "img/atom_logo.png"%}">
         </a>
 
-
-        <nav class="nav">
+        <nav class="nav" id="nav">
             <ul>
-{#                <li class="nav__elem"><a class="nav__ref ref__first" href="/create-account/">Создание счета</a></li>#}
-                <li class="nav__elem"><a class="nav__ref ref__first"  href="/info/{{ acc }}"}>Просмотр счета</a></li>
-                <li class="nav__elem"><a class="nav__ref ref__last" href="/add/{{ acc }}">Создание транзакции</a></li>
+                <li class="nav__elem"><a class="nav__ref ref__first"  href="/info/{{ acc }}">Просмотр счета</a></li>
+                <li class="nav__elem"><a class="nav__ref" href="/add/{{ acc }}">Создание транзакции</a></li>
+                <li class="nav__elem"><a class="nav__ref ref__last" href="/stat/{{ acc }}">Статистика счета</a></li>
             </ul>
         </nav>
     </div>
