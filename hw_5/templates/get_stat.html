@@ -15,5 +15,8 @@
     <img src="{% static "img/credit-card.svg" %}" alt="card_icon" class="amount__icon">
     <h3 class="amount__title">Текущее количество денежных средств на счете: <span class="number">{{ amount }}</span> ₽</h3>
 </div>
+    {%  for elem in stat_data %}
+        <p>{{ elem.month }}: {{ elem.s }}</p>
+    {% endfor %}
 
 {% endblock %}

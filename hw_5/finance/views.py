@@ -3,9 +3,10 @@
 # from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from .forms import ChargeForm, AccountForm
 from .models import Account, Charge
+from django.db.models.functions import TruncMonth
 
 
 def index(request):
@@ -93,12 +94,24 @@ def get_info(request, acc):
 
 def get_stat(request, acc):
     if Account.objects.filter(id_acc=acc).exists():
-        # change_by_mounth = Charge.objects.filter(account=acc).aggregate(Sum('value'))
-        # print(change_by_mounth)
+        change_by_month = Charge.objects \
+            .annotate(month=TruncMonth('date')) \
+            .values('month') \
+            .annotate(c=Count('id')) \
+            .annotate(s=Sum('value')) \
+            .values('month', 'c', 's')
+        print(change_by_month)
+        data = sorted(list(change_by_month), key=lambda x: x['month'])
+        # todo вставить недостоющие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
+        for elem in data:
+            print(elem['month'])
+        # print(data)
+
         return render(
             request, 'get_stat.html',
             {'acc': acc,
-             'amount': Account.objects.get(id_acc=acc).total
+             'amount': Account.objects.get(id_acc=acc).total,
+             'stat_data': change_by_month
              }
         )
     else:

@@ -1,3 +1,4 @@
+from django.views.generic import RedirectView
 """myFinance URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,6 +19,7 @@ from django.contrib import admin
 from finance import urls
 
 urlpatterns = [
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include(urls)),
 ]
