@@ -6,14 +6,15 @@ from django.shortcuts import render, render_to_response, redirect
 from django.db.models import Count, Sum
 from .forms import ChargeForm, AccountForm
 from .models import Account, Charge
-from django.db.models.functions import TruncMonth
+from django.db.models.functions import Trunc
+from django.db import transaction
 
 
 def index(request):
     response = render_to_response('index.html', {})
     return response
 
-
+@transaction.atomic()
 def create_account(request):
     err = []
     if request.method == 'POST':
@@ -41,7 +42,7 @@ def create_account(request):
          }
     )
 
-
+@transaction.atomic()
 def charges_form(request, acc):
     if Account.objects.filter(id_acc=acc).exists():
         if request.method == 'POST':
@@ -75,7 +76,7 @@ def charges_form(request, acc):
     else:
         return redirect('create_account')
 
-
+@transaction.atomic()
 def get_info(request, acc):
     if Account.objects.filter(id_acc=acc).exists():
         charges = Charge.objects.filter(account=acc)
@@ -91,21 +92,19 @@ def get_info(request, acc):
     else:
         return redirect('create_account')
 
-
+@transaction.atomic()
 def get_stat(request, acc):
     if Account.objects.filter(id_acc=acc).exists():
         change_by_month = Charge.objects \
-            .annotate(month=TruncMonth('date')) \
+            .filter(account_id=acc) \
+            .annotate(month=Trunc('date', 'month')) \
             .values('month') \
             .annotate(c=Count('id')) \
             .annotate(s=Sum('value')) \
-            .values('month', 'c', 's')
-        print(change_by_month)
-        data = sorted(list(change_by_month), key=lambda x: x['month'])
-        # todo вставить недостоющие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
-        for elem in data:
-            print(elem['month'])
-        # print(data)
+            .values('month', 'c', 's') \
+            .order_by('month')
+        # todo вставить недостающие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
+
 
         return render(
             request, 'get_stat.html',
