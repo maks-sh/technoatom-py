@@ -2,14 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="398e8ad6-a394-47df-b15d-2e70bf3634ee" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_booking.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_layout.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_login.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_modal-window.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_register.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/css/j_restaraunt.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/fonts/HelveticaBold.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/fonts/Montserrat-Bold.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/fonts/Montserrat-Regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/fonts/OFL.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/booking.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/editor.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/float_labels.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/j-query.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/j_layout.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/j_modalWindow.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/j_search_input.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/test.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/static/js/test.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_booking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_register-rest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_register.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hw_3/templates/j_restaurant.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Readme.md" afterPath="$PROJECT_DIR$/Readme.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/.idea/workspace.xml" afterPath="$PROJECT_DIR$/hw_3/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/finance/urls.py" afterPath="$PROJECT_DIR$/hw_3/finance/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/finance/views.py" afterPath="$PROJECT_DIR$/hw_3/finance/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/myFinance/settings.py" afterPath="$PROJECT_DIR$/hw_3/myFinance/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/static/css/layout.css" afterPath="$PROJECT_DIR$/hw_3/static/css/layout.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_3/static/css/reset.css" afterPath="$PROJECT_DIR$/hw_3/static/css/reset.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_5/.idea/workspace.xml" afterPath="$PROJECT_DIR$/hw_5/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw_5/Readme.md" afterPath="$PROJECT_DIR$/hw_5/Readme.md" />
     </list>
@@ -35,12 +59,32 @@
     <favorites_list name="myFinance" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Readme.md" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Readme.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="283">
               <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Readme.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hw_5/Readme.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -81,9 +125,9 @@
         <option value="$PROJECT_DIR$/hw_3/finance/views.py" />
         <option value="$PROJECT_DIR$/hw_3/finance/urls.py" />
         <option value="$PROJECT_DIR$/hw_3/Readme.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/hw_5/Readme.md" />
         <option value="$PROJECT_DIR$/Readme.md" />
+        <option value="$PROJECT_DIR$/hw_5/Readme.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -485,7 +529,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41760904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4305331" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -781,24 +825,26 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hw_5/.idea/hw 3.iml" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/Readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="283">
+          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hw_5/Readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="283">
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Readme.md">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
