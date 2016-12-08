@@ -1,0 +1,145 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+}
+
+html{
+  -webkit-tap-highlight-color: rgba(154, 26, 118, 0);
+}
+
+body{
+  font: normal 75% Helvetica, Arial, sans-serif;
+  min-height: 600px;
+}
+
+canvas{
+  display: block;
+  vertical-align: bottom;
+}
+
+.main {
+  background: rgba(139, 27, 227, 0.3);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  top: 30%;
+}
+
+.main__title {
+  color: #000000;
+  font-size: 4em;
+  text-align: center;
+  padding: 40px 0 20px 0;
+}
+
+.main__img {
+  width: 24px;
+}
+
+.main__desc {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.main__nav {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  font-size: 1.4em;
+}
+
+.nav__elem {
+  display: block;
+  width: 200px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.nav__auth-menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav__ref {
+  display: block;
+  padding: 15px 20px;
+  color: #3f3f3f;
+  border: 2px solid #ffffff;
+}
+
+.nav__ref__sign-up {
+    background-color: rgba(152, 31, 255, 0.51);
+}
+
+.nav__ref:hover {
+  background-color: #8B1BE3;
+  color: #ffffff; /* Цвет текста в блоках меню. */
+  border: 2px solid #ffffff;
+}
+
+a {
+  margin: 0 auto;
+}
+
+/******************* begin login form ******************/
+
+.form__group {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+.input {
+    color: #000000;
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding-left: 10px;
+}
+
+input:focus {
+    outline:none;
+}
+
+label {
+    /*color: #ffffff;*/
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 12px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.filled + label, .input:focus + label {
+    top: -20px;
+    font-size: 14px;
+    color: #000000;
+}
+
+/******************* end login form ******************/
+
+
+
+
+/* ---- particles.js container ---- */
+
+#particles-js{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,42 @@
+.spisok {
+    counter-reset: li;
+    list-style: none;
+    padding: 0;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+.spisok li{
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    margin: .5em 0;
+    background: #DAD2CA;
+    color: #444;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: .3s ease-out;
+}
+
+.spisok li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: rgb(206, 174, 217);
+    color: white;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+}
+
+.main__transactions {
+    width: 406px;
+    margin: 30px auto;
+}

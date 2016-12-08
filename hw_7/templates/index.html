@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Главная | Домашняя бухгалтерия</title>
+    <meta name="description" content="Проект Дмоашняя Бухгалтерия для курсов от Мейл.ру">
+    <meta name="author" content="Maksim Shevchenko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    {% load static %}
+    <script src="{% static "js/jquery-3.1.1.min.js"%}"></script>
+    <link rel="stylesheet" media="screen" href="{% static "css/reset.css"%}">
+    <link rel="stylesheet" media="screen" href="{% static "css/index.css"%}">
+    <link rel="stylesheet" media="screen" href="{% static "css/modal_window.css"%}">
+
+</head>
+<body>
+
+<div id="particles-js">
+    <div class="main">
+        <h1 class="main__title">Домашняя бухгалтерия <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+        <p class="main__desc">Сайт, предназначенный для ведения учёта и анализа личных финансов.<br>Узнайте состояние Вашего счета прямо сейчас:</p>
+        <nav class="main__nav nav">
+            <ul class="nav__auth-menu">
+                <li class="nav__elem"><a class="nav__ref open-modal" href="#login">Войти</a></li>
+                <li class="nav__elem"><a class="nav__ref open-modal nav__ref__sign-up" href="#signup">Зарегистрироваться</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div id="login" class="modal">
+    <div class="modal__content">
+        <a href="#" class="modal-content__close-btn"></a>
+        <form id="float_form" action="">
+            <div class="form__group">
+                    <input class="input" type="email" required name="email">
+                    <label class="label">E-mail</label>
+            </div>
+            <div class="form__group">
+                    <input class="input" type="password" required name="password">
+                    <label class="label">Password</label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="{% static "js/modal_window.js"%}"></script>
+<script src="{% static "js/particles.js"%}"></script>
+<script src="{% static "js/app.js"%}"></script>
+<script src="{% static "js/float_labels.js"%}"></script>
+
+</body>
+</html>
