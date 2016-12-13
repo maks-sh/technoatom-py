@@ -77,12 +77,12 @@ def create_account(request):
     if not request.user.is_authenticated():
         return redirect('index')
     if request.method == 'POST':
-
+        form = AccountForm(request.POST)
         if form.is_valid():
 
             account = form.save()
-            print(account.id_acc)
-            return redirect('get_info', account.id_acc)
+            print(account.acc_id)
+            return redirect('get_info', account.acc_id)
         else:
             info = 'Форма заполнена некорректно'
             # err = form.errors.as_data()['__all__']
@@ -105,13 +105,13 @@ def create_account(request):
 @transaction.atomic()
 @ensure_csrf_cookie
 def charges_form(request, acc):
-    if Account.objects.filter(id_acc=acc).exists():
+    if Account.objects.filter(acc_id=acc).exists():
         if request.method == 'POST':
             info = 'Форма заполнена некорректно'
             form = ChargeForm(request.POST)
 
             if form.is_valid():
-                a = Account.objects.get(id_acc=acc)
+                a = Account.objects.get(acc_id=acc)
                 charg = form.save(commit=False)
                 tot = a.total + charg.value
                 if tot < 0:
@@ -139,7 +139,7 @@ def charges_form(request, acc):
 
 @transaction.atomic()
 def get_info(request, acc):
-    if Account.objects.filter(id_acc=acc).exists():
+    if Account.objects.filter(acc_id=acc).exists():
         charges = Charge.objects.filter(account=acc)
         print(charges)
         transactions_pol = [i for i in charges if i.value > 0]
@@ -170,7 +170,7 @@ def get_stat(request, acc):
         return render(
             request, 'get_stat.html',
             {'acc': acc,
-             'amount': Account.objects.get(id_acc=acc).total,
+             'amount': Account.objects.get(acc_id=acc).total,
              'stat_data': change_by_month
              }
         )
@@ -185,5 +185,6 @@ def start_page(request):
         return redirect('create_account')
     else:
         pass
+        return redirect('get_info',1)
 #         TOdo добавить информацию о счетах на этой странице
 

@@ -111,8 +111,7 @@ class AccountForm(ModelForm):
         # ToDo сделать defclean
         cleaned_data = super().clean()
         value_total = self.data['total']
-        value_id_acc = self.data['id_acc']
-        # print(value_total, value_id_acc)
+        # print(value_total, value_acc_id)
 
         def check(field, name):
             """Попытка реализовать проверку для Safari"""
@@ -136,7 +135,6 @@ class AccountForm(ModelForm):
                     return
 
         check(value_total, 'Сумма')
-        check(value_id_acc, 'Номер счета')
 
         return cleaned_data
 
