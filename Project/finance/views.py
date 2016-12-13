@@ -181,10 +181,13 @@ def get_stat(request, acc):
 
 @transaction.atomic()
 def start_page(request):
+    print(Account.objects.filter(user_id=request.user.id).exists())
     if Account.objects.filter(user_id=request.user.id).exists():
         return redirect('create_account')
     else:
-        pass
-        return redirect('get_info',1)
+        return render(
+            request, 'start.html',
+            {}
+        )
 #         TOdo добавить информацию о счетах на этой странице
 
