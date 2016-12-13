@@ -7,7 +7,7 @@ class Account(models.Model):
     acc_id = models.AutoField(primary_key=True, blank=True)
     total = models.DecimalField(max_digits=8, decimal_places=2)
     acc_name = models.CharField('account name', max_length=32, unique=False)
-    user_id = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('UserProfile', on_delete=models.CASCADE, db_column='user_id')
 
     class Meta:
         db_table = 'Accounts'

@@ -10,6 +10,7 @@ from django.db.models.functions import Trunc
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 #
 from django.contrib import auth
 from django.views.generic.edit import FormView
@@ -80,7 +81,9 @@ def create_account(request):
         form = AccountForm(request.POST)
         if form.is_valid():
 
-            account = form.save()
+            account = form.save(commit=False)
+            account.user_id=UserProfile.objects.get(id=request.user.id)
+            account.save()
             print(account.acc_id)
             return redirect('get_info', account.acc_id)
         else:
@@ -91,8 +94,7 @@ def create_account(request):
             # err = form.errors.as_json().encode('utf-8')
             # for boundfield in form: print(boundfield.label, boundfield.errors)
     else:
-        #info = 'Заполните, пожалуйста, данные для транзакции'
-        info = request.user.id
+        info = 'Заполните, пожалуйста, данные для транзакции'
         form = AccountForm()
     return render(
         request, 'create_account.html',
@@ -104,38 +106,36 @@ def create_account(request):
 
 @transaction.atomic()
 @ensure_csrf_cookie
-def charges_form(request, acc):
-    if Account.objects.filter(acc_id=acc).exists():
-        if request.method == 'POST':
-            info = 'Форма заполнена некорректно'
-            form = ChargeForm(request.POST)
+@login_required(login_url='index')
+def charges_form(request):
 
-            if form.is_valid():
-                a = Account.objects.get(acc_id=acc)
-                charg = form.save(commit=False)
-                tot = a.total + charg.value
-                if tot < 0:
-                    info = 'Недостаточно средств на счете для проведения транзакции'
-                else:
-                    info = 'Данные отправлены'
-                    charg.account = a
-                    charg.save()
-                    a.total = tot
-                    a.save()
-                    # print(form.cleaned_data)
+    if request.method == 'POST':
+        info = 'Форма заполнена некорректно'
+        form = ChargeForm(request.POST)
+
+        if form.is_valid():
+            charg = form.save(commit=False)
+            a=charg.account
+            tot = a.total + charg.value
+            if tot < 0:
+                info = 'Недостаточно средств на счете для проведения транзакции'
             else:
-                print(form.data)
+                info = 'Данные отправлены'
+                charg.save()
+                a.total = tot
+                a.save()
+                # print(form.cleaned_data)
         else:
-            info = 'Заполните, пожалуйста, данные для транзакции'
-            form = ChargeForm()
-        return render(
-            request, 'charges_form.html',
-            {'form': form,
-             'info': info,
-             'acc': acc}
-        )
+            print(form.data)
     else:
-        return redirect('create_account')
+        info = 'Заполните, пожалуйста, данные для транзакции'
+        form = ChargeForm()
+    return render(
+        request, 'charges_form.html',
+        {'form': form,
+        'info': info,
+        'acc': a.acc_id}
+    )
 
 @transaction.atomic()
 def get_info(request, acc):
