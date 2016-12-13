@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Главная | Домашняя бухгалтерия
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/index.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h1 class="main__title">Домашняя бухгалтерия <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <p class="main__desc">Сайт, предназначенный для ведения учёта и анализа личных финансов.<br>Узнайте состояние Вашего счета прямо сейчас:</p>
+    <nav class="main__nav nav">
+        <ul class="nav__auth-menu">
+            <li class="nav__elem"><a class="nav__ref" href="/login/">Войти</a></li>
+            <li class="nav__elem"><a class="nav__ref nav__ref__sign-up" href="/signup/">Зарегистрироваться</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+{% endblock %}
+

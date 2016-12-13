@@ -1,0 +1,70 @@
+/******************* begin login form ******************/
+
+.main__form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form__group {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+/* ToDo сделать класс у input!!!*/
+input {
+    color: #000000;
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding-left: 10px;
+}
+
+input:focus {
+    outline:none;
+}
+
+.label {
+    /*color: #ffffff;*/
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 12px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.filled + label, input:focus + label {
+    top: -20px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.form__btn {
+    display: block;
+    width: 250px;
+    padding: 15px 20px;
+    color: #3f3f3f;
+    border: 2px solid #ffffff;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.form__btn:hover {
+    background-color: #8B1BE3;
+    color: #ffffff; /* Цвет текста в блоках меню. */
+    border: 2px solid #ffffff;
+    cursor: pointer;
+
+}
+
+/******************* end login form ******************/

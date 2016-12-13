@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Вход | Домашняя бухгалтерия
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/form.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h1 class="main__title">Войти <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <form action="" method="post" id="float_form" class="main__form">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+            <div class="form__group">
+                {{ field }}
+                <label class="label">{{ field.label }}</label>
+            </div>
+        {% endfor %}
+        <button type="submit" class="form__btn">Войти</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/float_labels.js"%}"></script>
+{% endblock %}

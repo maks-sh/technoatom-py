@@ -1,0 +1,42 @@
+{% extends "layout_user.html" %}
+
+{% load static %}
+
+{% block title %}
+    Добавление транзакций | Домашняя бухгалтерия
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/charges_form.css" %}">
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'add_charges' acc%}" method="post" class="main__form form">
+        {% csrf_token %}
+        <div class="form__header">
+            <h3 class="form__title">
+                Добавление транзакции
+            </h3>
+            {% if info %}
+                <p class = 'form__info'>{{ info }}</p>
+            {% endif %}
+        </div>
+        <div class="form__sep"></div>
+        <div class="form__inputs">
+            {% for field in form.visible_fields %}
+                <label class="form__label">{{ field.label }}{{ field }}</label>
+            {% endfor %}
+        </div>
+        {% if form.non_field_errors|length != 0 %}
+            <div class="form__errors">
+                <ul>
+                {% for er_r in form.non_field_errors %}
+                    <li class="error__elem">{{ er_r }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <button class="form__submit" type="submit">Отправить</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Регистрация | Домашняя бухгалтерия
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/form.css" %}">
+    <link rel="stylesheet" media="screen" href="{% static "css/signup.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h1 class="main__title">Регистрация <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <form action="" method="post" id="float_form" class="main__form">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+            <div class="form__group">
+                {{ field }}
+                <label class="label">{{ field.label }}</label>
+            </div>
+        {% endfor %}
+        <button type="submit" class="form__btn">Зарегистрироваться</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/float_labels.js"%}"></script>
+{% endblock %}
+
+
+{##}
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#  <head>#}
+{#    <title>Регистрация</title>#}
+{#  </head>#}
+{#  <body>#}
+{#    <form action="" method="post">#}
+{#      {% csrf_token %}#}
+{#      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->#}
+{#      {{ form.as_p }}#}
+{#      <button type="submit">Зарегистрироваться</button>#}
+{#    </form>#}
+{#  </body>#}
+{#</html>#}

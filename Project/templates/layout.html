@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Проект Дмоашняя Бухгалтерия для курсов от Мейл.ру">
+    <meta name="author" content="Maksim Shevchenko" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    {% load static %}
+    <script src="{% static "js/jquery-3.1.1.min.js"%}"></script>
+    <link rel="stylesheet" media="screen" href="{% static "css/reset.css"%}">
+    <link rel="stylesheet" media="screen" href="{% static "css/layout.css"%}">
+
+    {% block css %}{% endblock %}
+{#    <link rel="stylesheet" media="screen" href="{% static "css/modal_window.css"%}">#}
+
+</head>
+<body>
+
+<div id="particles-js">
+    {% block content %}{% endblock %}
+</div>
+
+
+<script src="{% static "js/particles.js"%}"></script>
+<script src="{% static "js/app.js"%}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

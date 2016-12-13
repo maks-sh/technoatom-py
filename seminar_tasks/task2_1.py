@@ -10,17 +10,10 @@ if __name__ == '__main__':
             print(decorator_arg1)
             def wrapped(function_arg1):
                 print(decorator_arg1, function_arg1)
-                return func(function_arg1)
+
+                return
             return wrapped
         return my_decorator
-
-
-    def my_dec(func):
-        def wrapper(arg):
-            print('тест')
-            func(arg)
-            print("<\______/>")
-        return wrapper
 
     @decorator_maker_with_arguments(3)
     def some_func(message):

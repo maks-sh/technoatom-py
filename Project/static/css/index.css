@@ -1,0 +1,49 @@
+.main__img {
+  width: 24px;
+}
+
+.main__desc {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.main__nav {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  font-size: 1.4em;
+}
+
+.nav__elem {
+  display: block;
+  width: 250px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.nav__auth-menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav__ref {
+  display: block;
+  padding: 15px 20px;
+  color: #3f3f3f;
+  border: 2px solid #ffffff;
+}
+
+.nav__ref__sign-up {
+    background-color: rgba(152, 31, 255, 0.51);
+}
+
+.nav__ref:hover {
+  background-color: #8B1BE3;
+  color: #ffffff; /* Цвет текста в блоках меню. */
+  border: 2px solid #ffffff;
+}
+
+a {
+  margin: 0 auto;
+}
