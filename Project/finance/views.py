@@ -202,8 +202,13 @@ def get_stat(request, acc):
 
 @transaction.atomic()
 def start_page(request):
-    print(Account.objects.filter(user_id=request.user.id).exists())
+
     accs = Account.objects.filter(user_id=request.user.id).all()
+    for a in accs:
+        a.charges = Charge.objects.filter(account=a.acc_id).all()[:5]
+        print(Charge.objects.filter(account=a.acc_id).all()[:5])
+        print(a.acc_id)
+
     if not Account.objects.filter(user_id=request.user.id).exists():
         return redirect('create_account')
     else:

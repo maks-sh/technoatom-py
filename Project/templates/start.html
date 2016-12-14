@@ -25,7 +25,20 @@
                 </div>
                 <p class="account__amount">{{ a.total }} ₽</p>
             </div>
-            <a href="#" class="account__last-tr">Последние транзакции</a>
+            <a href="" class="account__last-tr toggle">
+                <img src="{% static "img/arrow_down.svg" %}" alt="Раскрыть" class="toggle__arrow toggle__arrow-down">
+                <img src="{% static "img/arrow_up.svg" %}" alt="Раскрыть" class="toggle__arrow toggle__arrow-up">
+                Последние транзакции
+            </a>
+            <div class="spoiler_body">
+                {% if a.charges|length != 0 %}
+                    {% for charge in a.charges %}
+                        <p>{{ charge.date }}: {{ charge.value }} - {{ charge.category }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>Транзакций нет</p>
+                {% endif %}
+            </div>
 
         </div>
 
@@ -33,4 +46,8 @@
     </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/toggler.js"%}"></script>
 {% endblock %}
