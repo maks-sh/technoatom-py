@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'finance',
 ]
 
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'emrozenfeld@yandex.ru'
+EMAIL_HOST_PASSWORD = 'Rozenfeld95'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': 'q123werty',
         'HOST': 'localhost',
         'PORT': '5432'
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')db,

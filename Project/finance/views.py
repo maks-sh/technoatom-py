@@ -11,10 +11,11 @@ from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-#
+import datetime, hashlib, random
 from django.contrib import auth
 from django.views.generic.edit import FormView
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core.mail import send_mail
 
 #TODO сделать редактирование нормально, погуглить
 def user_edit(request):
@@ -34,6 +35,12 @@ def user_edit(request):
             user_form = UserCreateForm(instance=qs)
         return render(request, 'edit_profile.html', {'form': user_form})
 
+def confirmation(request,activ_key):
+    if UserProfile.objects.filter(activation_key=activ_key).exists():
+        user = UserProfile.objects.get(activation_key=activ_key)
+        user.is_active=True
+        user.save()
+        return render(request,'activate.html')
 
 
 @ensure_csrf_cookie
@@ -70,11 +77,30 @@ def reg(request):
                 new_user = user_form.save(commit=False)
                 # Set the chosen password
                 new_user.set_password(user_form.cleaned_data['password1'])
+                username = user_form.cleaned_data['first_name']
+                user_email = user_form.cleaned_data['email']
+                salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+                activation_key = hashlib.sha1((salt + user_email).encode('utf-8')).hexdigest()
+                key_expires = datetime.datetime.today() + datetime.timedelta(2)
+                # Get user by username
+                # Create and save user profile
+                # Send email with activation key
+                email_subject = 'Подтверждение регистрации'
+                email_body = "Hey %s, thanks for signing up. To activate your account, click this link within \
+                48hours http://127.0.0.1:8000/confirm/%s" % (username, activation_key)
+                print(email_body)
+                send_mail(email_subject, email_body, 'emrozenfeld@yandex.ru',
+                            [user_email])
+
                 # Save the User object
                 new_user.save()
-               # profile = UserProfile.objects.create(user=new_user)
+                profile = UserProfile.objects.get(email=user_email)
+                profile.key_expires=key_expires
+                profile.activation_key=activation_key
+                profile.is_active=False
+                profile.save()
 
-                return redirect('/login/')
+                return render_to_response('registration_complete.html', {})
         else:
             user_form = UserCreateForm()
         return render(request, 'signup.html', {'form': user_form})
@@ -159,9 +185,28 @@ def charges_form(request):
     )
 
 @transaction.atomic()
-def get_info(request, acc):
-    if Account.objects.filter(acc_id=acc).exists():
-        charges = Charge.objects.filter(account=acc)
+@login_required()
+def get_info(request, acc=0):
+    if acc !=0:
+        if not Account.objects.filter(acc_id=acc).exists():
+            return redirect('start')
+        if Account.objects.get(acc_id=acc).user_id != request.user.id:
+            return redirect('start')
+        if Account.objects.filter(acc_id=acc).exists():
+            charges = Charge.objects.filter(account=acc)
+            print(charges)
+            transactions_pol = [i for i in charges if i.value > 0]
+            transactions_otr = [i for i in charges if i.value < 0]
+            return render(
+                request, 'get_info.html',
+                {'transactions_pol': transactions_pol,
+                'transactions_otr': transactions_otr,
+                'acc': acc}
+            )
+        else:
+            return redirect('create_account')
+    else:
+        charges = Charge.objects.filter(account__user_id_id=request.user.id)
         print(charges)
         transactions_pol = [i for i in charges if i.value > 0]
         transactions_otr = [i for i in charges if i.value < 0]
@@ -171,8 +216,6 @@ def get_info(request, acc):
              'transactions_otr': transactions_otr,
              'acc': acc}
         )
-    else:
-        return redirect('create_account')
 
 @transaction.atomic()
 def get_stat(request, acc):
@@ -186,8 +229,6 @@ def get_stat(request, acc):
             .values('month', 'c', 's') \
             .order_by('month')
         # todo вставить недостающие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
-
-
         return render(
             request, 'get_stat.html',
             {'acc': acc,
