@@ -32,7 +32,7 @@ def user_edit(request):
                 return redirect('/start/')
         else:
             user_form = UserCreateForm(instance=qs)
-        return render(request, 'signup.html', {'form': user_form})
+        return render(request, 'edit_profile.html', {'form': user_form})
 
 
 

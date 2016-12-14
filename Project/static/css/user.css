@@ -1,0 +1,23 @@
+.edit-user {
+    width: 600px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 25px 25px;
+    background: #fff;
+    box-shadow:
+        0px 0px 0px 5px rgba( 255,255,255,0.4 ),
+        0px 4px 20px rgba( 0,0,0,0.33 );
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.edit-user__title {
+    margin-top: 20px;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+}

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Добавление транзакций | Домашняя бухгалтерия
+    Редактирование профиля | Домашняя бухгалтерия
 {% endblock %}
 
 {% block css %}
@@ -11,11 +11,12 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{% url 'add_charges' %}" method="post" class="main__form form" id="form">
+
+<form action="{% url 'add_charges' %}" method="post" class="main__form form">
         {% csrf_token %}
         <div class="form__header">
             <h3 class="form__title">
-                Добавление транзакции
+                Редактирование данных
             </h3>
             {% if info %}
                 <p class = 'form__info'>{{ info }}</p>
@@ -39,4 +40,10 @@
 
         <button class="form__submit" type="submit">Отправить</button>
     </form>
+
+
+{% endblock %}
+
+{% block scripts %}
+     <script src="{% static "js/edit_user.js"%}"></script>
 {% endblock %}

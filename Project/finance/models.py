@@ -12,16 +12,27 @@ class Account(models.Model):
     class Meta:
         db_table = 'Accounts'
 
+    def __str__(self):
+        return str(self.acc_id)
+
 
 class Charge(models.Model):
     ch_id = models.AutoField(primary_key=True, blank=True)
     value = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateField()
-    account = models.ForeignKey('Account', on_delete=models.CASCADE, db_column='acc_id')
+    account = models.ForeignKey('Account',
+                                on_delete=models.CASCADE,
+                                db_column='acc_id',
+                                )
     category = models.ForeignKey('ChargeCategory', on_delete=models.CASCADE, db_column='cat_id')
 
     class Meta:
         db_table = 'Charges'
+
+    # def __str__(self):
+    #     return str(self.account.acc_id)
+
+
 
 
 class UserProfile(AbstractUser):
@@ -45,3 +56,6 @@ class ChargeCategory(models.Model):
 
     class Meta:
         db_table='finance_chargecategory'
+
+    def __str__(self):
+        return str(self.cat_name)

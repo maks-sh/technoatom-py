@@ -32,6 +32,11 @@ class ChargeForm(ModelForm):
             'date': 'Дата: '
         }
 
+    def __init__(self, *args, **kwargs):
+        super(ChargeForm, self).__init__(*args, **kwargs)
+        if 'initial' in kwargs:
+            self.fields['account'].queryset = Account.objects.filter(acc_id=initial.account)
+
     def clean(self):
         # ToDo сделать defclean
         cleaned_data = super().clean()

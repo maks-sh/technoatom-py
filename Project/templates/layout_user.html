@@ -36,8 +36,10 @@
         </nav>
 
         <div class="user">
-            <p>{{ user.first_name }} {{ user.last_name }}</p>
-            <a href="/logout/">Выход</a>
+            <a href="/user/">{{ user.first_name }} {{ user.last_name }}</a>
+            <a href="/logout/">
+                <img src="{% static "img/logout.svg"%}" alt="Выход" class="user__logout">
+            </a>
         </div>
     </div>
 </header>
