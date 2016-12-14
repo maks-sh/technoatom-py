@@ -7,21 +7,30 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" media="screen" href="{% static "css/charges_random.css" %}">
+    <link rel="stylesheet" media="screen" href="{% static "css/start.css" %}">
 {% endblock %}
 
 {% block content %}
     <div class="accounts">
     {% for a in accs %}
-        <div class="accounts">
-            <h3 class="accounts__title">Счет '{{ a.acc_name }}'</h3>
+        <div class="account">
+            <div class="account__btns">
+                <a href="" class="account__del-btn"></a>
+                <a href="" class="account__edit-btn"></a>
+            </div>
+            <div class="account__desc">
+                <div class="account__theme">
+                    <img src='{% static "img/credit-card.svg" %}' alt="card_icon" class="account__icon">
+                    <h3 class="account__title">Счет '{{ a.acc_name }}'</h3>
+                </div>
+                <p class="account__amount">{{ a.total }} ₽</p>
+            </div>
+            <a href="#" class="account__last-tr">Последние транзакции</a>
 
         </div>
+
     {% endfor %}
     </div>
-    {% for a in accs %}
-        {{ a.acc_name }}
-    {% endfor %}
-    {{ accs.1.account }}
+
 
 {% endblock %}
