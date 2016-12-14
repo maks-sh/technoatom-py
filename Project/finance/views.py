@@ -35,6 +35,12 @@ def user_edit(request):
             user_form = UserCreateForm(instance=qs)
         return render(request, 'signup.html', {'form': user_form})
 
+def confirmation(request,activ_key):
+    if UserProfile.objects.filter(activation_key=activ_key).exists():
+        user = UserProfile.objects.get(activation_key=activ_key)
+        user.is_active=True
+        user.save()
+        return render(request,'activate.html')
 
 
 @ensure_csrf_cookie
@@ -81,16 +87,20 @@ def reg(request):
                 # Send email with activation key
                 email_subject = 'Подтверждение регистрации'
                 email_body = "Hey %s, thanks for signing up. To activate your account, click this link within \
-                48hours http://127.0.0.1:8082/accounts/confirm/%s" % (username, activation_key)
+                48hours http://127.0.0.1:8000/confirm/%s" % (username, activation_key)
+                print(email_body)
                 send_mail(email_subject, email_body, 'emrozenfeld@yandex.ru',
-                           [user_email])
+                            [user_email])
 
                 # Save the User object
                 new_user.save()
-                UserProfile.objects.update(email=user_email,activation_key=activation_key,key_expires=key_expires)
-               # profile = UserProfile.objects.create(user=new_user)
+                profile = UserProfile.objects.get(email=user_email)
+                profile.key_expires=key_expires
+                profile.activation_key=activation_key
+                profile.is_active=False
+                profile.save()
 
-                return redirect('/login/')
+                return render_to_response('registration_complete.html', {})
         else:
             user_form = UserCreateForm()
         return render(request, 'signup.html', {'form': user_form})
@@ -218,8 +228,13 @@ def get_stat(request, acc):
 
 @transaction.atomic()
 def start_page(request):
-    print(Account.objects.filter(user_id=request.user.id).exists())
+
     accs = Account.objects.filter(user_id=request.user.id).all()
+    for a in accs:
+        a.charges = Charge.objects.filter(account=a.acc_id).all()[:5]
+        print(Charge.objects.filter(account=a.acc_id).all()[:5])
+        print(a.acc_id)
+
     if not Account.objects.filter(user_id=request.user.id).exists():
         return redirect('create_account')
     else:

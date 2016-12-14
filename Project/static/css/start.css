@@ -1,5 +1,5 @@
 .account {
-    width: 406px;
+    width: 550px;
     margin: 30px auto;
     display: flex;
     flex-direction: column;
@@ -64,4 +64,20 @@
 .account__last-tr {
     display: flex;
     flex-direction: row-reverse;
+}
+
+.spoiler_body {
+    display:none;
+    margin-top: 10px;
+
+}
+
+.toggle__arrow {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+
+.toggle__arrow-up {
+    display:none;
 }
