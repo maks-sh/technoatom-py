@@ -11,5 +11,17 @@
 {% endblock %}
 
 {% block content %}
+    <div class="accounts">
+    {% for a in accs %}
+        <div class="accounts">
+            <h3 class="accounts__title">Счет '{{ a.acc_name }}'</h3>
+
+        </div>
+    {% endfor %}
+    </div>
+    {% for a in accs %}
+        {{ a.acc_name }}
+    {% endfor %}
+    {{ accs.1.account }}
 
 {% endblock %}
