@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
-from .forms import ChargeForm, AccountForm, UserCreatForm
+from .forms import ChargeForm, AccountForm, UserCreateForm
 from .models import Account, Charge, UserProfile
 from django.db.models.functions import Trunc
 from django.db import transaction
@@ -15,6 +15,25 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.views.generic.edit import FormView
 from django.views.decorators.csrf import ensure_csrf_cookie
+
+#TODO сделать редактирование нормально, погуглить
+def user_edit(request):
+    if not request.user.is_authenticated():
+        return redirect('index')
+    else:
+        qs = UserProfile.objects.get(id=request.user.id)
+        if request.method == 'POST':
+
+            user_form = UserCreateForm(request.POST, instance=qs)
+
+            if user_form.is_valid():
+                user_form.save()
+
+                return redirect('/start/')
+        else:
+            user_form = UserCreateForm(instance=qs)
+        return render(request, 'signup.html', {'form': user_form})
+
 
 
 @ensure_csrf_cookie
@@ -44,7 +63,7 @@ def reg(request):
         return redirect('start')
     else:
         if request.method == 'POST':
-            user_form = UserCreatForm(request.POST)
+            user_form = UserCreateForm(request.POST)
 
             if user_form.is_valid():
                 # Create a new user object but avoid saving it yet
@@ -57,7 +76,7 @@ def reg(request):
 
                 return redirect('/login/')
         else:
-            user_form = UserCreatForm()
+            user_form = UserCreateForm()
         return render(request, 'signup.html', {'form': user_form})
 
 def logout_view(request):
@@ -115,6 +134,7 @@ def charges_form(request):
 
         if form.is_valid():
             charg = form.save(commit=False)
+            form.save()
             a = charg.account
             tot = a.total + charg.value
             if tot < 0:
@@ -182,8 +202,6 @@ def get_stat(request, acc):
 @transaction.atomic()
 def start_page(request):
     print(Account.objects.filter(user_id=request.user.id).exists())
-    accs = Account.objects.filter(user_id=request.user.id).all()
-    print(accs)
     if not Account.objects.filter(user_id=request.user.id).exists():
         return redirect('create_account')
     else:
@@ -192,4 +210,3 @@ def start_page(request):
             {'accs': accs}
         )
 #         TOdo добавить информацию о счетах на этой странице
-

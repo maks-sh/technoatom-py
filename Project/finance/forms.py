@@ -138,8 +138,8 @@ class AccountForm(ModelForm):
 
         return cleaned_data
 
-# ToDo переименовать
-class UserCreatForm(ModelForm):
+
+class UserCreateForm(ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
 
@@ -160,7 +160,7 @@ class UserCreatForm(ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserCreatForm, self).save(commit=False)
+        user = super(UserCreateForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
