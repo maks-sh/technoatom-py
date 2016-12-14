@@ -1,5 +1,6 @@
 from django.db import models
 from  django.contrib.auth.models import AbstractUser, PermissionsMixin
+import datetime
 # Create your models here.
 
 
@@ -32,6 +33,8 @@ class UserProfile(AbstractUser):
         unique=True,
     )
     username = models.CharField('phone',max_length=255, unique=False)
+    activation_key = models.CharField(max_length=40, blank=True)
+    key_expires = models.DateTimeField(default=datetime.date.today())
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

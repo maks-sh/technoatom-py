@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'finance',
 ]
 
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'emrozenfeld@yandex.ru'
+EMAIL_HOST_PASSWORD = 'Rozenfeld95'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

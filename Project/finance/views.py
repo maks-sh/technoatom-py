@@ -11,10 +11,11 @@ from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-#
+import datetime, hashlib, random
 from django.contrib import auth
 from django.views.generic.edit import FormView
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core.mail import send_mail
 
 #TODO сделать редактирование нормально, погуглить
 def user_edit(request):
@@ -70,8 +71,23 @@ def reg(request):
                 new_user = user_form.save(commit=False)
                 # Set the chosen password
                 new_user.set_password(user_form.cleaned_data['password1'])
+                username = user_form.cleaned_data['first_name']
+                user_email = user_form.cleaned_data['email']
+                salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+                activation_key = hashlib.sha1((salt + user_email).encode('utf-8')).hexdigest()
+                key_expires = datetime.datetime.today() + datetime.timedelta(2)
+                # Get user by username
+                # Create and save user profile
+                # Send email with activation key
+                email_subject = 'Подтверждение регистрации'
+                email_body = "Hey %s, thanks for signing up. To activate your account, click this link within \
+                48hours http://127.0.0.1:8082/accounts/confirm/%s" % (username, activation_key)
+                send_mail(email_subject, email_body, 'emrozenfeld@yandex.ru',
+                           [user_email])
+
                 # Save the User object
                 new_user.save()
+                UserProfile.objects.update(email=user_email,activation_key=activation_key,key_expires=key_expires)
                # profile = UserProfile.objects.create(user=new_user)
 
                 return redirect('/login/')
