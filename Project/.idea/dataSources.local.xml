@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-<<<<<<< HEAD
-    <data-source name="PostgreSQL - postgres@localhost" uuid="51b2549f-4c24-4211-9121-b13667ea0fbc">
-=======
     <data-source name="PostgreSQL - postgres@localhost" uuid="200e72ca-7b0b-4338-b30b-c2402a9407e0">
->>>>>>> 0b44602b5b1e0a60e58e6b33b680fb93d62a8f56
-      <database-info product="PostgreSQL" version="9.6.1" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>postgres</user-name>
-      <introspection-scope>postgres:public,pg_catalog,postgres</introspection-scope>
-      <resolve-scope>postgres:public,postgres</resolve-scope>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>memory</secret-storage>
     </data-source>
   </component>
 </project>

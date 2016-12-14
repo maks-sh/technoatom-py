@@ -115,7 +115,7 @@ def charges_form(request):
 
         if form.is_valid():
             charg = form.save(commit=False)
-            a=charg.account
+            a = charg.account
             tot = a.total + charg.value
             if tot < 0:
                 info = 'Недостаточно средств на счете для проведения транзакции'
@@ -134,7 +134,7 @@ def charges_form(request):
         request, 'charges_form.html',
         {'form': form,
         'info': info,
-        'acc': a.acc_id}
+        }
     )
 
 @transaction.atomic()
