@@ -44,4 +44,4 @@ class ChargeCategory(models.Model):
     cat_name = models.CharField('category', max_length=32, unique=False)
 
     class Meta:
-        db_table='ChargeCategory'
+        db_table='finance_chargecategory'

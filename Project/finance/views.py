@@ -144,6 +144,7 @@ def charges_form(request):
                 charg.save()
                 a.total = tot
                 a.save()
+                return redirect('start')
                 # print(form.cleaned_data)
         else:
             print(form.data)
