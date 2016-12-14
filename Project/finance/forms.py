@@ -1,5 +1,5 @@
 # coding: utf8
-from django.forms import Form, fields, widgets, ModelForm, DateInput, Textarea, DateField, DecimalField, NumberInput, CharField, TextInput, PasswordInput
+from django.forms import Form, fields, widgets, ModelForm, DateInput, Textarea, DateField, DecimalField, NumberInput, CharField, TextInput, PasswordInput, EmailField
 from django.forms.widgets import ChoiceInput
 from finance.models import Account, Charge, UserProfile
 from django.core.exceptions import ValidationError
@@ -171,6 +171,32 @@ class UserCreateForm(ModelForm):
             user.save()
         return user
 
+class UpdateProfile(ModelForm):
+    #
+    # email = EmailField(required=True)
+    # first_name = CharField(required=False)
+    # last_name = CharField(required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'phone']
+
+    # def clean_email(self):
+    #     username = self.cleaned_data.get('username')
+    #     email = self.cleaned_data.get('email')
+    #
+    #     if email and UserProfile.objects.filter(email=email).exclude(username=username).count():
+    #         raise ValidationError('This email address is already in use. Please supply a different email address.')
+    #     return email
+    #
+    # def save(self, commit=True):
+    #     user = super(UserCreationForm, self).save(commit=False)
+    #     user.email = self.cleaned_data['email']
+    #
+    #     if commit:
+    #         user.save()
+    #
+    #     return user
 
 class FilterForm(Form):
     accounts = ChoiceInput
