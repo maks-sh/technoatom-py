@@ -254,4 +254,24 @@ def start_page(request):
             request, 'start.html',
             {'accs': accs}
         )
-#         TOdo добавить информацию о счетах на этой странице
+
+@transaction.atomic()
+def del_acc(request, acc):
+    if acc in [str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).all().values('acc_id')]:
+        Account.objects.filter(acc_id=acc).delete()
+        return redirect('/start/')
+    else:
+        redirect('/create-account/')
+
+
+@transaction.atomic()
+def del_charge(request, chg):
+    if chg in [str(charge['ch_id']) for charge in Charge.objects.filter(account__in=[str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).values('acc_id')]).values('ch_id')]:
+        acc = Charge.objects.filter(ch_id=chg).values('account', 'value')[0]
+        print(acc)
+        total = Account.objects.filter(acc_id=acc['account']).values('total')[0]['total'] - acc['value']
+        Account.objects.filter(acc_id=acc['account']).update(total=total)
+        Charge.objects.filter(ch_id=chg).delete()
+        return redirect('/info/')
+    else:
+        redirect('/create-account/')

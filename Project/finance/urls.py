@@ -17,4 +17,8 @@ urlpatterns = [
     url(r'^logout/$', log, {'template_name': 'index.html', 'next_page': '/'}, name='logout'),
     url(r'^user/$', user_edit, name='user_edit'),
     url(r'^confirm/(?P<activ_key>.{1,40})/$', confirmation, name='confirm'),
+    url(r'^del-acc/(?P<acc>\d{1,10})/$', del_acc, name='delete_account'),
+    # url(r'^edit-acc/(?P<acc>\d{1,10})/$', edit_acc, name='edit_account'),
+    url(r'^del-chg/(?P<chg>\d{1,10})/$', del_charge, name='delete_charge'),
+
 ]

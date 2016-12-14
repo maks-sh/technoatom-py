@@ -15,8 +15,8 @@
     {% for a in accs %}
         <div class="account">
             <div class="account__btns">
-                <a href="" class="account__del-btn"></a>
-                <a href="" class="account__edit-btn"></a>
+                <a href="/del-acc/{{ a.acc_id }}" class="account__del-btn"></a>
+                <a href="/edit-acc/{{ a.acc_id }}" class="account__edit-btn"></a>
             </div>
             <div class="account__desc">
                 <div class="account__theme">

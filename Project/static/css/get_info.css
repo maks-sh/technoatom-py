@@ -40,3 +40,9 @@
     width: 406px;
     margin: 30px auto;
 }
+
+.del-icon {
+    float: right;
+    width: 15px;
+    height: 15px;
+}

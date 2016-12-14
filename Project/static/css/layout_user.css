@@ -101,6 +101,6 @@ header {
 }
 
 .user__name {
-    width: 120px;
+    max-width: 120px;
     overflow: hidden;
 }

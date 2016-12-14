@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" media="screen" href="{% static "css/charges_random.css" %}">
+    <link rel="stylesheet" media="screen" href="{% static "css/get_info.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -27,6 +27,9 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} начисление: {{ transaction.value }}
+                        <a href="/del-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
+                        </a>
                     </li>
                 {% if forloop.last %}
                 </ol>
@@ -41,6 +44,9 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} списание: {{ transaction.value }}
+                        <a href="/del-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
+                        </a>
                     </li>
                 {% if forloop.last %}
                 </ol>
