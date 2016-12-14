@@ -1,4 +1,6 @@
 
+
+
   if (window.location.pathname == '/create-account/') {
     console.log(document.getElementById('nav'));
     document.getElementById('nav').style.display = 'none';

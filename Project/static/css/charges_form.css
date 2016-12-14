@@ -53,7 +53,7 @@
     display: block;
 }
 
-.form___input {
+.form___input, select {
     background: #f5f5f5;
     font-size: 0.8rem;
     -moz-border-radius: 3px;
@@ -107,4 +107,14 @@
 .form__submit:hover{
     background: rgb(139, 27, 227);
     cursor: pointer;
+}
+
+/* todo исправить на класс */
+select {
+    height: 46px;
+    width: 350px;
+}
+
+select:focus {
+    outline: none;
 }

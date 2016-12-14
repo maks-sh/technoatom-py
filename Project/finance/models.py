@@ -14,7 +14,7 @@ class Account(models.Model):
         db_table = 'Accounts'
 
     def __str__(self):
-        return str(self.acc_id)
+        return str(self.acc_name)
 
 
 class Charge(models.Model):

@@ -158,9 +158,10 @@ def charges_form(request):
         info = 'Форма заполнена некорректно'
         form = ChargeForm(request.POST)
 
+
         if form.is_valid():
             charg = form.save(commit=False)
-            form.save()
+            print(charg)
             a = charg.account
             tot = a.total + charg.value
             if tot < 0:
@@ -243,19 +244,14 @@ def get_stat(request, acc):
 
 @transaction.atomic()
 def start_page(request):
-
-    accs = Account.objects.filter(user_id=request.user.id).all()
-    for a in accs:
-        a.charges = Charge.objects.filter(account=a.acc_id).all()[:5]
-        print(Charge.objects.filter(account=a.acc_id).all()[:5])
-        print(a.acc_id)
-
     if not Account.objects.filter(user_id=request.user.id).exists():
         return redirect('create_account')
     else:
+        accs = Account.objects.filter(user_id=request.user.id).all()
+        for a in accs:
+            a.charges = Charge.objects.filter(account=a.acc_id).order_by('-ch_id')[:5]
         return render(
             request, 'start.html',
-
             {'accs': accs}
         )
 #         TOdo добавить информацию о счетах на этой странице

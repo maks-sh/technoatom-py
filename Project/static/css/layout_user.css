@@ -99,3 +99,8 @@ header {
     width: 25px;
     height: 25px;
 }
+
+.user__name {
+    width: 120px;
+    overflow: hidden;
+}

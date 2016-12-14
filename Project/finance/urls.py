@@ -15,10 +15,6 @@ urlpatterns = [
     url(r'^login/$', login_view, name='login'),
     url(r'^start/$', start_page, name='start'),
     url(r'^logout/$', log, {'template_name': 'index.html', 'next_page': '/'}, name='logout'),
-<<<<<<< HEAD
     url(r'^user/$', user_edit, name='user_edit'),
-=======
-    url(r'^user_edit/$', user_edit, name='user_edit'),
     url(r'^confirm/(?P<activ_key>.{1,40})/$', confirmation, name='confirm'),
->>>>>>> d9b0fbbf6b8016e410f18c42b19dc9487f31496c
 ]

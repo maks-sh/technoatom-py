@@ -10,6 +10,15 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class ChargeForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ChargeForm, self).__init__(*args, **kwargs)
+        try:
+            print('sdsadasd', self.instance.user_id)
+            self.fields['account'].queryset = Account.objects.filter(user_id=self.instance.user_id)
+
+        except:
+            pass
+
     class Meta:
         fields = ['value', 'date', 'account', 'category']
         model = Charge
@@ -31,11 +40,6 @@ class ChargeForm(ModelForm):
             'value': 'Сумма: ',
             'date': 'Дата: '
         }
-
-    def __init__(self, *args, **kwargs):
-        super(ChargeForm, self).__init__(*args, **kwargs)
-        if 'initial' in kwargs:
-            self.fields['account'].queryset = Account.objects.filter(acc_id=initial.account)
 
     def clean(self):
         # ToDo сделать defclean
