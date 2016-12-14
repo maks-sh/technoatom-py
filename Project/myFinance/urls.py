@@ -23,5 +23,4 @@ urlpatterns = [
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include(urls)),
-    url(r'^', include('registration.urls')),
 ]
