@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
-from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile
+from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile, FilterForm
 from .models import Account, Charge, UserProfile
 from django.db.models.functions import Trunc
 from django.db import transaction
@@ -178,6 +178,7 @@ def charges_form(request):
     else:
         info = 'Заполните, пожалуйста, данные для транзакции'
         form = ChargeForm()
+        form.fields['account'].queryset = Account.objects.filter(user_id=request.user.id)
     return render(
         request, 'charges_form.html',
         {'form': form,

@@ -10,14 +10,14 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class ChargeForm(ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(ChargeForm, self).__init__(*args, **kwargs)
-        try:
-            print('sdsadasd', self.instance.user_id)
-            self.fields['account'].queryset = Account.objects.filter(user_id=self.instance.user_id)
-
-        except:
-            pass
+    # def __init__(self, *args, **kwargs):
+    #     super(ChargeForm, self).__init__(*args, **kwargs)
+    #     try:
+    #         print('sdsadasd', self.instance.user_id)
+    #         self.fields['account'].queryset = Account.objects.filter(user_id=self.instance.user_id)
+    #
+    #     except:
+    #         pass
 
     class Meta:
         fields = ['value', 'date', 'account', 'category']
@@ -154,6 +154,7 @@ class UserCreateForm(ModelForm):
 
     password1 = CharField(label='Password', widget=PasswordInput)
     password2 = CharField(label='Password confirmation', widget=PasswordInput)
+
     class Meta:
         model = UserProfile
 
@@ -176,33 +177,14 @@ class UserCreateForm(ModelForm):
         return user
 
 class UpdateProfile(ModelForm):
-    #
-    # email = EmailField(required=True)
-    # first_name = CharField(required=False)
-    # last_name = CharField(required=False)
-
     class Meta:
         model = UserProfile
         fields = ['first_name', 'last_name', 'phone']
 
-    # def clean_email(self):
-    #     username = self.cleaned_data.get('username')
-    #     email = self.cleaned_data.get('email')
-    #
-    #     if email and UserProfile.objects.filter(email=email).exclude(username=username).count():
-    #         raise ValidationError('This email address is already in use. Please supply a different email address.')
-    #     return email
-    #
-    # def save(self, commit=True):
-    #     user = super(UserCreationForm, self).save(commit=False)
-    #     user.email = self.cleaned_data['email']
-    #
-    #     if commit:
-    #         user.save()
-    #
-    #     return user
 
 class FilterForm(Form):
-    accounts = ChoiceInput
-    date1 = DateInput
-    date2 = DateInput
+    date1 = DateInput()
+    date2 = DateInput()
+    class Meta:
+        model = Charge
+        fields = ['account']

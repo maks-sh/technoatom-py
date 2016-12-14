@@ -1,3 +1,4 @@
 */.idea/*
+.idea/*
 /Project/.idea/*
 /Project/finance/__pycache__/*
