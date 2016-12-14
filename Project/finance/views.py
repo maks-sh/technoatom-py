@@ -4,11 +4,11 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
-from .forms import ChargeForm, AccountForm, UserCreateForm
+from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile
 from .models import Account, Charge, UserProfile
 from django.db.models.functions import Trunc
 from django.db import transaction
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 import datetime, hashlib, random
@@ -18,22 +18,22 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.mail import send_mail
 
 #TODO сделать редактирование нормально, погуглить
+@login_required()
 def user_edit(request):
-    if not request.user.is_authenticated():
-        return redirect('index')
+    args = {}
+
+    if request.method == 'POST':
+        form = UpdateProfile(request.POST,instance=request.user)
+        if form.is_valid():
+            print("Succ!")
+            form.save()
+            return redirect('start')
     else:
-        qs = UserProfile.objects.get(id=request.user.id)
-        if request.method == 'POST':
+        form = UpdateProfile(instance=request.user)
 
-            user_form = UserCreateForm(request.POST, instance=qs)
+    args['form'] = form
+    return render(request, 'edit_profile.html', args)
 
-            if user_form.is_valid():
-                user_form.save()
-
-                return redirect('/start/')
-        else:
-            user_form = UserCreateForm(instance=qs)
-        return render(request, 'edit_profile.html', {'form': user_form})
 
 def confirmation(request,activ_key):
     if UserProfile.objects.filter(activation_key=activ_key).exists():

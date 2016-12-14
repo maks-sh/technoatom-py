@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<form action="{% url 'add_charges' %}" method="post" class="main__form form">
+<form action="{% url 'user_edit' %}" method="post" class="main__form form">
         {% csrf_token %}
         <div class="form__header">
             <h3 class="form__title">
@@ -27,7 +27,8 @@
             {% for field in form.visible_fields %}
                 <label class="form__label">{{ field.label }}{{ field }}</label>
             {% endfor %}
-        </div>
+
+
         {% if form.non_field_errors|length != 0 %}
             <div class="form__errors">
                 <ul>
