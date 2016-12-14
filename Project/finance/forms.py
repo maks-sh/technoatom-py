@@ -167,3 +167,7 @@ class UserCreateForm(ModelForm):
         return user
 
 
+class FilterForm(Form):
+    accounts = ChoiceInput
+    date1 = DateInput
+    date2 = DateInput

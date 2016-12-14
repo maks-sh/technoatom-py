@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^create-account/$', create_account, name='create_account'),
     # url(r'^add/(?P<acc>\d{1,10})/$', charges_form, name='add_charges'),
     url(r'^add/$', charges_form, name='add_charges'),
+    url(r'^info/$', get_info, name='get_info_all'),
     url(r'^info/(?P<acc>\d{1,10})/$', get_info, name='get_info'),
     url(r'^stat/(?P<acc>\d{1,10})/$', get_stat, name='get_stat'),
     url(r'^signup/$', reg),

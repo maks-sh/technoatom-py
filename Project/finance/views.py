@@ -185,9 +185,28 @@ def charges_form(request):
     )
 
 @transaction.atomic()
-def get_info(request, acc):
-    if Account.objects.filter(acc_id=acc).exists():
-        charges = Charge.objects.filter(account=acc)
+@login_required()
+def get_info(request, acc=0):
+    if acc !=0:
+        if not Account.objects.filter(acc_id=acc).exists():
+            return redirect('start')
+        if Account.objects.get(acc_id=acc).user_id != request.user.id:
+            return redirect('start')
+        if Account.objects.filter(acc_id=acc).exists():
+            charges = Charge.objects.filter(account=acc)
+            print(charges)
+            transactions_pol = [i for i in charges if i.value > 0]
+            transactions_otr = [i for i in charges if i.value < 0]
+            return render(
+                request, 'get_info.html',
+                {'transactions_pol': transactions_pol,
+                'transactions_otr': transactions_otr,
+                'acc': acc}
+            )
+        else:
+            return redirect('create_account')
+    else:
+        charges = Charge.objects.filter(account__user_id_id=request.user.id)
         print(charges)
         transactions_pol = [i for i in charges if i.value > 0]
         transactions_otr = [i for i in charges if i.value < 0]
@@ -197,8 +216,6 @@ def get_info(request, acc):
              'transactions_otr': transactions_otr,
              'acc': acc}
         )
-    else:
-        return redirect('create_account')
 
 @transaction.atomic()
 def get_stat(request, acc):
@@ -212,8 +229,6 @@ def get_stat(request, acc):
             .values('month', 'c', 's') \
             .order_by('month')
         # todo вставить недостающие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
-
-
         return render(
             request, 'get_stat.html',
             {'acc': acc,
