@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^add/$', charges_form, name='add_charges'),
     url(r'^info/$', get_info, name='get_info_all'),
     url(r'^info/(?P<acc>\d{1,10})/$', get_info, name='get_info'),
+    url(r'^stat/$', get_stat, name='get_stat_all'),
     url(r'^stat/(?P<acc>\d{1,10})/$', get_stat, name='get_stat'),
     url(r'^signup/$', reg),
     url(r'^login/$', login_view, name='login'),
@@ -18,7 +19,8 @@ urlpatterns = [
     url(r'^user/$', user_edit, name='user_edit'),
     url(r'^confirm/(?P<activ_key>.{1,40})/$', confirmation, name='confirm'),
     url(r'^del-acc/(?P<acc>\d{1,10})/$', del_acc, name='delete_account'),
-    # url(r'^edit-acc/(?P<acc>\d{1,10})/$', edit_acc, name='edit_account'),
+    url(r'^edit-acc/(?P<acc>\d{1,10})/$', acc_edit, name='edit_account'),
     url(r'^del-chg/(?P<chg>\d{1,10})/$', del_charge, name='delete_charge'),
+    # url(r'^edit-chg/(?P<chg>\d{1,10})/$', chg_edit, name='edit_charge'),
 
 ]

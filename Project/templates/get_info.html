@@ -27,6 +27,9 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} начисление: {{ transaction.value }}
+                        <a href="/edit-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-icon">
+                        </a>
                         <a href="/del-chg/{{ transaction.ch_id }}">
                             <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
                         </a>
@@ -44,6 +47,9 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} списание: {{ transaction.value }}
+                        <a href="/edit-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-icon">
+                        </a>
                         <a href="/del-chg/{{ transaction.ch_id }}">
                             <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
                         </a>
