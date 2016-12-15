@@ -41,8 +41,12 @@
     margin: 30px auto;
 }
 
-.del-icon {
+.del-edit-icon {
     float: right;
     width: 15px;
     height: 15px;
+}
+
+.edit-icon {
+    margin-right: 7px;
 }

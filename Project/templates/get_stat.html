@@ -11,24 +11,29 @@
 {% endblock %}
 
 {% block content %}
-<div class="amount">
-    <img src="{% static "img/credit-card.svg" %}" alt="card_icon" class="amount__icon">
-    <h3 class="amount__title title3">Текущее количество денежных средств на счете: <span class="number">{{ amount }}</span> ₽</h3>
-</div>
-<div class="monthly">
-    <h3 class="title3">Изменение счета за месяц:</h3>
-    <div class="monthly__content">
-        {%  for elem in stat_data %}
-        <div class="month">
-            <img src="{% static "img/calendar.svg" %}" alt="card_icon" class="amount__icon">
-            <p class="month-data">
-                <span class="bold">{{ elem.month|date:"F Y"}}:</span> <span class="number">{{ elem.s }}</span> ₽; <span class="bold">Количество транзакций:</span> {{ elem.c }}
-            </p>
-        </div>
+
+{%  for elem in stat_data %}
+<div class="account">
+    <div class="amount">
+        <img src="{% static "img/credit-card.svg" %}" alt="card_icon" class="amount__icon">
+        <h3 class="amount__title title3">Текущее количество денежных средств на счете '{{ elem.name.acc_name }}': <span class="number">{{ elem.acc_sum }}</span> ₽</h3>
+    </div>
+    <div class="monthly">
+        <h3 class="title3">Изменение счета по месяцам:</h3>
+        <div class="monthly__content">
+        {% for month in elem.change_by_month %}
+            <div class="month">
+                <img src="{% static "img/calendar.svg" %}" alt="card_icon" class="amount__icon">
+                <p class="month-data">
+                    <span class="bold">{{ month.month|date:"F Y"}}:</span> <span class="number">{{ month.s }}</span> ₽; <span class="bold">Количество транзакций:</span> {{ month.c }}
+                </p>
+            </div>
         {% endfor %}
+        </div>
+
     </div>
 
 </div>
-
+{% endfor %}
 
 {% endblock %}

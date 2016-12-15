@@ -12,7 +12,17 @@
 
 {% block content %}
     <div class="filters">
-        {{ form }}
+        <form action="" method="get">
+            <select name="account" id="account" required>
+                <option value="all">По всем счетам</option>
+                {% for acc in accs %}
+                    <option value="{{ acc.acc_id }}">{{ acc.acc_name }}</option>
+                {% endfor %}
+            </select>
+            <input type="date" name="date-start" required>
+            <input type="date" name="date-end" required>
+            <button>Применить фильтры</button>
+        </form>
     </div>
 
     <div class="main__transactions transactions">
@@ -31,12 +41,13 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} начисление: {{ transaction.value }}
-                        <a href="/edit-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-icon">
-                        </a>
                         <a href="/del-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
+                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-edit-icon">
                         </a>
+                        <a href="/edit-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-edit-icon edit-icon">
+                        </a>
+
                     </li>
                 {% if forloop.last %}
                 </ol>
@@ -51,11 +62,11 @@
                 {% endif %}
                     <li>
                         {{ transaction.date }} списание: {{ transaction.value }}
-                        <a href="/edit-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-icon">
-                        </a>
                         <a href="/del-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-icon">
+                            <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-edit-icon">
+                        </a>
+                        <a href="/edit-chg/{{ transaction.ch_id }}">
+                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-edit-icon edit-icon">
                         </a>
                     </li>
                 {% if forloop.last %}

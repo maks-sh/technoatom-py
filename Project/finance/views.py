@@ -9,6 +9,7 @@ from .models import Account, Charge, UserProfile
 from .serializers import AccountSerializer
 from rest_framework import viewsets
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 from django.db.models.functions import Trunc
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
@@ -211,9 +212,15 @@ def get_info(request, acc=0):
     #     else:
     #         return redirect('create_account')
     # else:
-    form = FilterForm()
-    print(form)
-    # form.fields['account'].queryset = Account.objects.filter(user_id=request.user.id)
+    print(request.GET.values())
+
+    # Проверка на то, что переданы именно эти параметры
+    if request.GET.values():
+        # Проверка на то что переданный айди акка принадлежит залогиненному пользователю и далее вывод информации
+        pass
+
+    # Это ветка else первого if по сути
+    accs = Account.objects.filter(user_id=request.user.id).values('acc_id', 'acc_name', 'total')
     charges = Charge.objects.filter(account__user_id_id=request.user.id)
     transactions_pol = [i for i in charges if i.value > 0]
     transactions_otr = [i for i in charges if i.value < 0]
@@ -221,14 +228,15 @@ def get_info(request, acc=0):
         request, 'get_info.html',
         {'transactions_pol': transactions_pol,
          'transactions_otr': transactions_otr,
-         'acc': acc,
-         'form': form}
+         'accs': accs,
+         }
     )
 
 @login_required()
 @transaction.atomic()
 def get_stat(request, acc=0):
     if acc !=0:
+        # Эта ветка никогда не заработает
         if not Account.objects.filter(acc_id=acc).exists():
             return redirect('start')
         if Account.objects.get(acc_id=acc).user_id != request.user.id:
@@ -253,20 +261,28 @@ def get_stat(request, acc=0):
         else:
             return redirect('create_account')
     else:
-        change_by_month = Charge.objects \
-            .filter(account_id__in=Account.objects.filter(user_id=request.user.id)) \
-            .annotate(month=Trunc('date', 'month')) \
-            .values('month') \
-            .annotate(c=Count('ch_id')) \
-            .annotate(s=Sum('value')) \
-            .values('month', 'c', 's') \
-            .order_by('month')
+        account_info = Charge.objects \
+            .filter(account__in=Account.objects.filter(user_id=request.user.id)) \
+            .values('account', ) \
+            .annotate(acc_sum=Sum('value'))
+
+        for acc in account_info:
+            acc['change_by_month'] = Charge.objects \
+                .filter(account__in=Account.objects.filter(acc_id=acc['account'])) \
+                .annotate(month=Trunc('date', 'month')) \
+                .values('month') \
+                .annotate(c=Count('ch_id')) \
+                .annotate(s=Sum('value')) \
+                .values('month', 'c', 's') \
+                .order_by('month')
+            acc['name'] = Account.objects.filter(acc_id=acc['account']).values('acc_name')[0]
+
         # todo вставить недостающие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
+
         return render(
             request, 'get_stat.html',
             {'acc': acc,
-             'amount': Account.objects.values('user_id').annotate(Sum('total')).get(user_id=request.user.id)['total__sum'],
-             'stat_data': change_by_month
+             'stat_data': account_info
              }
         )
 
@@ -335,13 +351,11 @@ def acc_edit(request, acc):
     return render(request, 'edit_account.html', args)
 
 # @login_required()
-# def chg_edit(request, chg):
-class AccountViewSet(viewsets.ViewSet):
-
-    def list(self, request):
-        serializer_class = AccountSerializer
-        permission_classes = [permissions.IsAuthenticated]
-        queryset = Account.objects.all()
-        # queryset = Account.objects.filter(user_id=self.request.user.id)
-        redirect('start')
-
+# class AccountViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSett):
+#
+#
+#     def list(self, request):
+#         permission = [permissions.IsAuthenticated]
+#         queryset = Account.objects.filter(user_id=self.request.user.id)
+#         serializer = AccountSerializer(queryset)
+#         return Response(serializer.data)
