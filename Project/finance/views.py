@@ -135,7 +135,7 @@ def create_account(request):
             account.user_id=UserProfile.objects.get(id=request.user.id)
             account.save()
             print(account.acc_id)
-            return redirect('get_info', account.acc_id)
+            return redirect('get_info')
         else:
             info = 'Форма заполнена некорректно'
 

@@ -43,7 +43,7 @@ class UserProfile(AbstractUser):
         max_length=255,
         unique=True,
     )
-    username = models.CharField('username', max_length=255, unique=False, default='user')
+    username = models.CharField('phone', max_length=255, unique=False)
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today())
     USERNAME_FIELD = 'email'
@@ -63,14 +63,3 @@ class ChargeCategory(models.Model):
 
     def __str__(self):
         return str(self.cat_name)
-
-
-class UserManager(BaseUserManager):
-    use_in_migrations = True
-
-    def create_superuser(self, username, password, **kwargs):
-        user = self.model(email=username, is_staff=True, is_superuser=True,
-                          **kwargs)
-        user.set_password(password)
-        user.save()
-        return user

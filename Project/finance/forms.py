@@ -149,14 +149,13 @@ class UserCreateForm(ModelForm):
 
     class Meta:
         model = UserProfile
+        widgets = {
+            'phone': TextInput(attrs={'class': 'form___input',
+                                         'size': '32',
+                                 'Pattern': '^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$'}
+                                  )}
 
         fields = ['email', 'phone', 'last_name', 'first_name']
-
-    def clean_phone(self):
-        telephone = self.cleaned_data.get('phone')
-        p = re.compile(r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$')
-        result = p.match(telephone)
-        # if
 
     def clean_password2(self):
         # Check that the two password entries match
