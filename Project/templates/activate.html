@@ -1,7 +1,14 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/index.css" %}">
+{% endblock %}
+
+
 {% block content %}
-<h1>Активация</h1>
-Привет, {{ account }}!<br/>
-Ваша учетная запись активирована. <a href="http://127.0.0.1:8000/login">Заходите</a> на сайт.
-<br/><br/>
+<div class="main">
+    <h1 class="main__title">Домашняя бухгалтерия <img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <p class="main__desc">Привет, {{ name }}! Ваша учетная запись активирована.<br><a href="http://127.0.0.1:8000/login">Заходите</a> на сайт.</p>
+</div>
 {% endblock %}

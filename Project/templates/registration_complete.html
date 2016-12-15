@@ -1,7 +1,16 @@
-{% extends "base.html"  %}
+{% extends "layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "css/index.css" %}">
+{% endblock %}
+
+
 {% block content %}
-<h1>Регистрация завершена</h1>
-Спасибо за уделённое время. На ваш e-mail отправлен 
-код подтверждения. Необходимо подтвердить регистрацию, 
-просто кликнув по указанной ссылке.<br/><br/>
+<div class="main">
+    <h1 class="main__title">Регистрация завершена<img class="main__img" src="{% static "img/atom_logo.png"%}"></h1>
+    <p class="main__desc">Спасибо за уделённое время. На ваш e-mail отправлен
+код подтверждения. Необходимо подтвердить регистрацию,
+просто кликнув по указанной ссылке.</p>
+</div>
 {% endblock %}

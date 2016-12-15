@@ -42,7 +42,7 @@ def confirmation(request,activ_key):
         user = UserProfile.objects.get(activation_key=activ_key)
         user.is_active=True
         user.save()
-        return render(request,'activate.html')
+        return render(request,'activate.html',{'name':user.first_name})
 
 
 @ensure_csrf_cookie
