@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
 from .forms import *
-from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile, FilterForm, UpdateAccount
 from .models import Account, Charge, UserProfile
 from .serializers import AccountSerializer
 from rest_framework import viewsets
@@ -181,7 +180,7 @@ def charges_form(request):
     else:
         info = 'Заполните, пожалуйста, данные для транзакции'
         form = ChargeForm()
-        form.fields['account'].queryset = Account.objects.filter(user_id=request.user.id)
+    form.fields['account'].queryset = Account.objects.filter(user_id=request.user.id)
     return render(
         request, 'charges_form.html',
         {'form': form,
