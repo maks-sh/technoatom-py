@@ -354,6 +354,10 @@ def acc_edit(request, acc):
     args['form'] = form
     return render(request, 'edit_account.html', args)
 
+def del_prof(request):
+    pass
+
+
 # @login_required()
 # class AccountViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSett):
 #

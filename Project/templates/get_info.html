@@ -11,19 +11,19 @@
 {% endblock %}
 
 {% block content %}
-    <div class="filters">
-        <form action="" method="get">
-            <select name="account" id="account" required>
-                <option value="all">По всем счетам</option>
-                {% for acc in accs %}
-                    <option value="{{ acc.acc_id }}">{{ acc.acc_name }}</option>
-                {% endfor %}
-            </select>
-            <input type="date" name="date-start" required>
-            <input type="date" name="date-end" required>
-            <button>Применить фильтры</button>
-        </form>
-    </div>
+
+    <form action="" method="get" class="filters">
+        <select name="account" id="account" required>
+            <option value="all">По всем счетам</option>
+            {% for acc in accs %}
+                <option value="{{ acc.acc_id }}">{{ acc.acc_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="date-start" class="filters__input" required>
+        <input type="date" name="date-end" class="filters__input" required>
+        <button class="filter__submit">Применить фильтры</button>
+    </form>
+
 
     <div class="main__transactions transactions">
     {% for transaction in data %}

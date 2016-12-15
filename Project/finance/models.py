@@ -1,5 +1,6 @@
 from django.db import models
 from  django.contrib.auth.models import AbstractUser, PermissionsMixin
+from django.contrib.auth.base_user import BaseUserManager
 import datetime
 # Create your models here.
 
@@ -33,13 +34,16 @@ class Charge(models.Model):
 
 
 class UserProfile(AbstractUser):
-    phone = models.CharField('phone', max_length=255, unique=True,)
+    phone = models.CharField('phone',
+                             max_length=255,
+                             unique=True,
+                             )
     email = models.EmailField(
         verbose_name='Email',
         max_length=255,
         unique=True,
     )
-    username = models.CharField('phone',max_length=255, unique=False)
+    username = models.CharField('username', max_length=255, unique=False, default='user')
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today())
     USERNAME_FIELD = 'email'
@@ -59,3 +63,14 @@ class ChargeCategory(models.Model):
 
     def __str__(self):
         return str(self.cat_name)
+
+
+class UserManager(BaseUserManager):
+    use_in_migrations = True
+
+    def create_superuser(self, username, password, **kwargs):
+        user = self.model(email=username, is_staff=True, is_superuser=True,
+                          **kwargs)
+        user.set_password(password)
+        user.save()
+        return user

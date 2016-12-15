@@ -50,3 +50,47 @@
 .edit-icon {
     margin-right: 7px;
 }
+
+.filters {
+    margin: 10px auto;
+}
+
+.filters__input, select {
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 150px;
+    margin: 10px auto;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+.filters__input {
+
+}
+
+select {
+    height: 41px;
+    width: 150px;
+}
+
+.filter__submit {
+    margin-left: 10px;
+    padding: 13px 10px;
+    width: 150px;
+    font-weight: 700;
+    color: white;
+    border-radius: 10px;
+    border: hidden;
+    background: rgba(139, 27, 227, 0.5);
+    transition: 0.2s;
+}
+
+.filter__submit:hover{
+    background: rgb(139, 27, 227);
+    cursor: pointer;
+}
