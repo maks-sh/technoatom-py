@@ -6,10 +6,8 @@ from finance.views import *
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^create-account/$', create_account, name='create_account'),
-    # url(r'^add/(?P<acc>\d{1,10})/$', charges_form, name='add_charges'),
     url(r'^add/$', charges_form, name='add_charges'),
     url(r'^info/$', get_info, name='get_info_all'),
-    url(r'^info/(?P<acc>\d{1,10})/$', get_info, name='get_info'),
     url(r'^stat/$', get_stat, name='get_stat_all'),
     url(r'^stat/(?P<acc>\d{1,10})/$', get_stat, name='get_stat'),
     url(r'^signup/$', reg),
@@ -21,7 +19,6 @@ urlpatterns = [
     url(r'^del-acc/(?P<acc>\d{1,10})/$', del_acc, name='delete_account'),
     url(r'^edit-acc/(?P<acc>\d{1,10})/$', acc_edit, name='edit_account'),
     url(r'^del-chg/(?P<chg>\d{1,10})/$', del_charge, name='delete_charge'),
-    # url(r'^edit-chg/(?P<chg>\d{1,10})/$', chg_edit, name='edit_charge'),
 
 
     # url(r'^api/user/(?P<id>\d+)/accounts/.json$', AccountViewSet.as_view({'get': 'list'})),

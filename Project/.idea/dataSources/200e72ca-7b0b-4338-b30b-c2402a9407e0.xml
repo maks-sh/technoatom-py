@@ -8,8 +8,8 @@
     <schema id="2" parent="1" name="public">
       <object-id>2200</object-id>
       <visible>1</visible>
-      <introspection-state-number>1071</introspection-state-number>
-      <introspection-timestamp>2016-12-15.02:37:44.231</introspection-timestamp>
+      <introspection-state-number>1167</introspection-state-number>
+      <introspection-timestamp>2016-12-15.14:02:13.238</introspection-timestamp>
     </schema>
     <schema id="3" parent="1" name="pg_catalog">
       <object-id>11</object-id>
@@ -120,7 +120,7 @@
     </table>
     <table id="31" parent="2" name="finance_chargecategory">
       <object-id>34062</object-id>
-      <state-number>1067</state-number>
+      <state-number>1167</state-number>
     </table>
     <table id="32" parent="2" name="UserProfile">
       <object-id>34017</object-id>
@@ -649,256 +649,261 @@ model</columns>
       <mandatory>1</mandatory>
       <data-type>varchar(32)|0</data-type>
     </column>
-    <index id="127" parent="31" name="finance_chargecategory_pkey">
+    <column id="127" parent="31" name="cat_type">
+      <state-number>1167</state-number>
+      <mandatory>1</mandatory>
+      <data-type>varchar(2)|0</data-type>
+    </column>
+    <index id="128" parent="31" name="finance_chargecategory_pkey">
       <object-id>34066</object-id>
       <columns>cat_id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <key id="128" parent="31" name="finance_chargecategory_pkey">
+    <key id="129" parent="31" name="finance_chargecategory_pkey">
       <object-id>34067</object-id>
       <columns>cat_id</columns>
       <underlying-index>finance_chargecategory_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <column id="129" parent="32" name="id">
+    <column id="130" parent="32" name="id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
       <default-expression>nextval(&apos;&quot;UserProfile_id_seq&quot;&apos;::regclass)</default-expression>
     </column>
-    <column id="130" parent="32" name="password">
+    <column id="131" parent="32" name="password">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(128)|0</data-type>
     </column>
-    <column id="131" parent="32" name="last_login">
+    <column id="132" parent="32" name="last_login">
       <state-number>989</state-number>
       <data-type>timestamp with time zone|0</data-type>
     </column>
-    <column id="132" parent="32" name="is_superuser">
+    <column id="133" parent="32" name="is_superuser">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>boolean|0</data-type>
     </column>
-    <column id="133" parent="32" name="first_name">
+    <column id="134" parent="32" name="first_name">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(30)|0</data-type>
     </column>
-    <column id="134" parent="32" name="last_name">
+    <column id="135" parent="32" name="last_name">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(30)|0</data-type>
     </column>
-    <column id="135" parent="32" name="is_staff">
+    <column id="136" parent="32" name="is_staff">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>boolean|0</data-type>
     </column>
-    <column id="136" parent="32" name="is_active">
+    <column id="137" parent="32" name="is_active">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>boolean|0</data-type>
     </column>
-    <column id="137" parent="32" name="date_joined">
+    <column id="138" parent="32" name="date_joined">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>timestamp with time zone|0</data-type>
     </column>
-    <column id="138" parent="32" name="phone">
+    <column id="139" parent="32" name="phone">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="139" parent="32" name="email">
+    <column id="140" parent="32" name="email">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="140" parent="32" name="username">
+    <column id="141" parent="32" name="username">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="141" parent="32" name="activation_key">
+    <column id="142" parent="32" name="activation_key">
       <state-number>1067</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(40)|0</data-type>
     </column>
-    <column id="142" parent="32" name="key_expires">
-      <state-number>1067</state-number>
+    <column id="143" parent="32" name="key_expires">
+      <state-number>1167</state-number>
       <mandatory>1</mandatory>
       <data-type>timestamp with time zone|0</data-type>
     </column>
-    <index id="143" parent="32" name="UserProfile_pkey">
+    <index id="144" parent="32" name="UserProfile_pkey">
       <object-id>34024</object-id>
       <columns>id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="144" parent="32" name="UserProfile_phone_8e5fb471_uniq">
+    <index id="145" parent="32" name="UserProfile_phone_8e5fb471_uniq">
       <object-id>34161</object-id>
       <columns>phone</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="145" parent="32" name="UserProfile_email_key">
+    <index id="146" parent="32" name="UserProfile_email_key">
       <object-id>34026</object-id>
       <columns>email</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="146" parent="32" name="UserProfile_phone_8e5fb471_like">
+    <index id="147" parent="32" name="UserProfile_phone_8e5fb471_like">
       <object-id>34163</object-id>
       <columns>phone</columns>
       <desc-columns></desc-columns>
     </index>
-    <index id="147" parent="32" name="UserProfile_email_a9be228b_like">
+    <index id="148" parent="32" name="UserProfile_email_a9be228b_like">
       <object-id>34068</object-id>
       <columns>email</columns>
       <desc-columns></desc-columns>
     </index>
-    <key id="148" parent="32" name="UserProfile_pkey">
+    <key id="149" parent="32" name="UserProfile_pkey">
       <object-id>34025</object-id>
       <columns>id</columns>
       <underlying-index>UserProfile_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <key id="149" parent="32" name="UserProfile_phone_8e5fb471_uniq">
+    <key id="150" parent="32" name="UserProfile_phone_8e5fb471_uniq">
       <object-id>34162</object-id>
       <columns>phone</columns>
       <underlying-index>UserProfile_phone_8e5fb471_uniq</underlying-index>
     </key>
-    <key id="150" parent="32" name="UserProfile_email_key">
+    <key id="151" parent="32" name="UserProfile_email_key">
       <object-id>34027</object-id>
       <columns>email</columns>
       <underlying-index>UserProfile_email_key</underlying-index>
     </key>
-    <column id="151" parent="33" name="id">
+    <column id="152" parent="33" name="id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
       <default-expression>nextval(&apos;&quot;UserProfile_groups_id_seq&quot;&apos;::regclass)</default-expression>
     </column>
-    <column id="152" parent="33" name="userprofile_id">
+    <column id="153" parent="33" name="userprofile_id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <column id="153" parent="33" name="group_id">
+    <column id="154" parent="33" name="group_id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <index id="154" parent="33" name="UserProfile_groups_pkey">
+    <index id="155" parent="33" name="UserProfile_groups_pkey">
       <object-id>34034</object-id>
       <columns>id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="155" parent="33" name="UserProfile_groups_userprofile_id_0d7d3f81_uniq">
+    <index id="156" parent="33" name="UserProfile_groups_userprofile_id_0d7d3f81_uniq">
       <object-id>34079</object-id>
       <columns>userprofile_id
 group_id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="156" parent="33" name="UserProfile_groups_9c2a73e9">
+    <index id="157" parent="33" name="UserProfile_groups_9c2a73e9">
       <object-id>34081</object-id>
       <columns>userprofile_id</columns>
       <desc-columns></desc-columns>
     </index>
-    <index id="157" parent="33" name="UserProfile_groups_0e939a4f">
+    <index id="158" parent="33" name="UserProfile_groups_0e939a4f">
       <object-id>34082</object-id>
       <columns>group_id</columns>
       <desc-columns></desc-columns>
     </index>
-    <key id="158" parent="33" name="UserProfile_groups_pkey">
+    <key id="159" parent="33" name="UserProfile_groups_pkey">
       <object-id>34035</object-id>
       <columns>id</columns>
       <underlying-index>UserProfile_groups_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <key id="159" parent="33" name="UserProfile_groups_userprofile_id_0d7d3f81_uniq">
+    <key id="160" parent="33" name="UserProfile_groups_userprofile_id_0d7d3f81_uniq">
       <object-id>34080</object-id>
       <columns>userprofile_id
 group_id</columns>
       <underlying-index>UserProfile_groups_userprofile_id_0d7d3f81_uniq</underlying-index>
     </key>
-    <foreign-key id="160" parent="33" name="UserProfile_groups_userprofile_id_a3b99491_fk_UserProfile_id">
+    <foreign-key id="161" parent="33" name="UserProfile_groups_userprofile_id_a3b99491_fk_UserProfile_id">
       <object-id>34069</object-id>
       <columns>userprofile_id</columns>
       <ref-key>~.UserProfile.UserProfile_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <foreign-key id="161" parent="33" name="UserProfile_groups_group_id_f9c774a4_fk_auth_group_id">
+    <foreign-key id="162" parent="33" name="UserProfile_groups_group_id_f9c774a4_fk_auth_group_id">
       <object-id>34074</object-id>
       <columns>group_id</columns>
       <ref-key>~.auth_group.auth_group_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <column id="162" parent="34" name="id">
+    <column id="163" parent="34" name="id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
       <default-expression>nextval(&apos;&quot;UserProfile_user_permissions_id_seq&quot;&apos;::regclass)</default-expression>
     </column>
-    <column id="163" parent="34" name="userprofile_id">
+    <column id="164" parent="34" name="userprofile_id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <column id="164" parent="34" name="permission_id">
+    <column id="165" parent="34" name="permission_id">
       <state-number>989</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <index id="165" parent="34" name="UserProfile_user_permissions_pkey">
+    <index id="166" parent="34" name="UserProfile_user_permissions_pkey">
       <object-id>34042</object-id>
       <columns>id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="166" parent="34" name="UserProfile_user_permissions_userprofile_id_57fce408_uniq">
+    <index id="167" parent="34" name="UserProfile_user_permissions_userprofile_id_57fce408_uniq">
       <object-id>34093</object-id>
       <columns>userprofile_id
 permission_id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="167" parent="34" name="UserProfile_user_permissions_9c2a73e9">
+    <index id="168" parent="34" name="UserProfile_user_permissions_9c2a73e9">
       <object-id>34095</object-id>
       <columns>userprofile_id</columns>
       <desc-columns></desc-columns>
     </index>
-    <index id="168" parent="34" name="UserProfile_user_permissions_8373b171">
+    <index id="169" parent="34" name="UserProfile_user_permissions_8373b171">
       <object-id>34096</object-id>
       <columns>permission_id</columns>
       <desc-columns></desc-columns>
     </index>
-    <key id="169" parent="34" name="UserProfile_user_permissions_pkey">
+    <key id="170" parent="34" name="UserProfile_user_permissions_pkey">
       <object-id>34043</object-id>
       <columns>id</columns>
       <underlying-index>UserProfile_user_permissions_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <key id="170" parent="34" name="UserProfile_user_permissions_userprofile_id_57fce408_uniq">
+    <key id="171" parent="34" name="UserProfile_user_permissions_userprofile_id_57fce408_uniq">
       <object-id>34094</object-id>
       <columns>userprofile_id
 permission_id</columns>
       <underlying-index>UserProfile_user_permissions_userprofile_id_57fce408_uniq</underlying-index>
     </key>
-    <foreign-key id="171" parent="34" name="UserProfile_user_perm_userprofile_id_8fc2aee2_fk_UserProfile_id">
+    <foreign-key id="172" parent="34" name="UserProfile_user_perm_userprofile_id_8fc2aee2_fk_UserProfile_id">
       <object-id>34083</object-id>
       <columns>userprofile_id</columns>
       <ref-key>~.UserProfile.UserProfile_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <foreign-key id="172" parent="34" name="UserProfile_user_p_permission_id_fcca642d_fk_auth_permission_id">
+    <foreign-key id="173" parent="34" name="UserProfile_user_p_permission_id_fcca642d_fk_auth_permission_id">
       <object-id>34088</object-id>
       <columns>permission_id</columns>
       <ref-key>~.auth_permission.auth_permission_pkey</ref-key>

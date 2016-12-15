@@ -1,12 +1,10 @@
 # coding: utf8
-from django.forms import Form, fields, widgets, ModelForm, DateInput, Textarea, DateField, DecimalField, NumberInput, CharField, TextInput, PasswordInput, EmailField
-from django.forms.widgets import ChoiceInput
-from finance.models import Account, Charge, UserProfile
+from django.forms import Form, fields, widgets, ModelForm, DateInput, NumberInput, CharField, TextInput, PasswordInput
+from finance.models import Account, Charge, UserProfile, ChargeCategory
 from django.core.exceptions import ValidationError
 import re
 from decimal import *
 from datetime import date
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class ChargeForm(ModelForm):
 
@@ -36,6 +34,7 @@ class ChargeForm(ModelForm):
         value_value_cln = self.cleaned_data.get('value')
         value_value = self.data['value']
         value_date = self.data['date']
+        category = self.data['category']
 
         def check(field, name):
             """Попытка реализовать проверку для Safari"""
@@ -77,6 +76,12 @@ class ChargeForm(ModelForm):
         if value_date_cln is not None and value_value_cln is not None and \
                 value_value_cln < 0 and value_date_cln > date.today():
             self.add_error(None, 'Нельзя проводить списание в будущем!')
+
+        if value_value_cln>0 and ChargeCategory.objects.get(cat_id=category).cat_type=='-' or \
+                value_value_cln < 0 and ChargeCategory.objects.get(cat_id=category).cat_type == '+':
+            print("Не надо так!")
+            self.add_error(None, 'Невозможно присвоить данной транзакции такую категорию!')
+
         return cleaned_data
 
 
@@ -152,7 +157,7 @@ class UserCreateForm(ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Passwords don't match")
+            self.add_error(None,"Passwords don't match")
         return password2
 
     def save(self, commit=True):
@@ -172,12 +177,3 @@ class UpdateAccount(ModelForm):
     class Meta:
         model = Account
         fields = ['acc_name','total']
-
-
-class FilterForm(Form):
-
-    # date1 = DateInput()
-    # date2 = DateInput()
-    class Meta:
-        model = Charge
-        fields = ['account']

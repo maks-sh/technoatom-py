@@ -30,10 +30,6 @@ class Charge(models.Model):
     class Meta:
         db_table = 'Charges'
 
-    # def __str__(self):
-    #     return str(self.account.acc_id)
-
-
 
 
 class UserProfile(AbstractUser):
@@ -56,6 +52,7 @@ class UserProfile(AbstractUser):
 class ChargeCategory(models.Model):
     cat_id = models.AutoField(primary_key=True, blank=True)
     cat_name = models.CharField('category', max_length=32, unique=False)
+    cat_type = models.CharField('Category type', max_length=2, unique=False)
 
     class Meta:
         db_table='finance_chargecategory'

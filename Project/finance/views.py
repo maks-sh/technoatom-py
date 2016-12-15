@@ -22,13 +22,14 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.mail import send_mail
 
 @login_required()
+@transaction.atomic()
 def user_edit(request):
     args = {}
 
     if request.method == 'POST':
         form = UpdateProfile(request.POST,instance=request.user)
         if form.is_valid():
-            print("Succ!")
+            print("Profile udpated!")
             form.save()
             return redirect('start')
     else:
@@ -37,7 +38,7 @@ def user_edit(request):
     args['form'] = form
     return render(request, 'edit_profile.html', args)
 
-
+@transaction.atomic()
 def confirmation(request,activ_key):
     if UserProfile.objects.filter(activation_key=activ_key).exists():
         user = UserProfile.objects.get(activation_key=activ_key)
@@ -47,6 +48,7 @@ def confirmation(request,activ_key):
 
 
 @ensure_csrf_cookie
+@transaction.atomic()
 def login_view(request):
     if request.user.is_authenticated():
         return redirect('start')
@@ -54,60 +56,61 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = auth.authenticate(username=username, password=password)
-
-        print(user)
         form=AuthenticationForm
+
         if user is None:
-            print('пользователь не введен')
-            print(username,password)
+            return render(request,'login.html',{'form':form})
+        if user.is_active==False:
             return render(request,'login.html',{'form':form})
 
-        else:
-            print('Succ!')
-            auth.login(request, user)
-            return redirect('index')
+        print('User Logged in!')
+        auth.login(request, user)
+        return redirect('start')
 
 @ensure_csrf_cookie
+@transaction.atomic()
 def reg(request):
     if request.user.is_authenticated():
         return redirect('start')
-    else:
-        if request.method == 'POST':
-            user_form = UserCreateForm(request.POST)
 
-            if user_form.is_valid():
-                # Create a new user object but avoid saving it yet
-                new_user = user_form.save(commit=False)
-                # Set the chosen password
-                new_user.set_password(user_form.cleaned_data['password1'])
-                username = user_form.cleaned_data['first_name']
-                user_email = user_form.cleaned_data['email']
-                salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
-                activation_key = hashlib.sha1((salt + user_email).encode('utf-8')).hexdigest()
-                key_expires = datetime.datetime.today() + datetime.timedelta(2)
-                # Get user by username
-                # Create and save user profile
-                # Send email with activation key
-                email_subject = 'Подтверждение регистрации'
-                email_body = "Hey %s, thanks for signing up. To activate your account, click this link within \
-                48hours http://127.0.0.1:8000/confirm/%s" % (username, activation_key)
-                print(email_body)
-                send_mail(email_subject, email_body, 'emrozenfeld@yandex.ru',
+    if request.method == 'POST':
+        user_form = UserCreateForm(request.POST)
+
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(user_form.cleaned_data['password1'])
+            username = user_form.cleaned_data['first_name']
+            user_email = user_form.cleaned_data['email']
+            salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+            activation_key = hashlib.sha1((salt + user_email).encode('utf-8')).hexdigest()
+            key_expires = datetime.datetime.today() + datetime.timedelta(2)
+            # Get user by username
+            # Create and save user profile
+            # Send email with activation key
+            email_subject = 'Подтверждение регистрации'
+            email_body = "Hey %s, thanks for signing up. To activate your account, click this link within \
+            48hours http://127.0.0.1:8000/confirm/%s" % (username, activation_key)
+            print(email_body)
+            send_mail(email_subject, email_body, 'emrozenfeld@yandex.ru',
                             [user_email])
 
-                # Save the User object
-                new_user.save()
-                profile = UserProfile.objects.get(email=user_email)
-                profile.key_expires=key_expires
-                profile.activation_key=activation_key
-                profile.is_active=False
-                profile.save()
+            # Save the User object
+            new_user.save()
+            profile = UserProfile.objects.get(email=user_email)
+            profile.key_expires=key_expires
+            profile.activation_key=activation_key
+            profile.is_active=False
+            profile.save()
 
-                return render_to_response('registration_complete.html', {})
-        else:
-            user_form = UserCreateForm()
-        return render(request, 'signup.html', {'form': user_form})
+            return render_to_response('registration_complete.html', {})
+    else:
+        user_form = UserCreateForm()
+    return render(request, 'signup.html', {'form': user_form})
 
+@login_required()
+@transaction.atomic()
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
@@ -128,7 +131,6 @@ def create_account(request):
     if request.method == 'POST':
         form = AccountForm(request.POST)
         if form.is_valid():
-
             account = form.save(commit=False)
             account.user_id=UserProfile.objects.get(id=request.user.id)
             account.save()
@@ -136,14 +138,11 @@ def create_account(request):
             return redirect('get_info', account.acc_id)
         else:
             info = 'Форма заполнена некорректно'
-            # err = form.errors.as_data()['__all__']
-            # for e in err: print(e)
-            # print(type(form.errors.as_json()))
-            # err = form.errors.as_json().encode('utf-8')
-            # for boundfield in form: print(boundfield.label, boundfield.errors)
+
     else:
         info = 'Заполните, пожалуйста, данные для транзакции'
         form = AccountForm()
+
     return render(
         request, 'create_account.html',
         {'form': form,
@@ -191,43 +190,48 @@ def charges_form(request):
 
 @transaction.atomic()
 @login_required()
-def get_info(request, acc=0):
-    #
-    # if acc !=0:
-    #     if not Account.objects.filter(acc_id=acc).exists():
-    #         return redirect('start')
-    #     if Account.objects.get(acc_id=acc).user_id != request.user.id:
-    #         return redirect('start')
-    #     if Account.objects.filter(acc_id=acc).exists():
-    #         charges = Charge.objects.filter(account=acc)
-    #         print(charges)
-    #         transactions_pol = [i for i in charges if i.value > 0]
-    #         transactions_otr = [i for i in charges if i.value < 0]
-    #         return render(
-    #             request, 'get_info.html',
-    #             {'transactions_pol': transactions_pol,
-    #             'transactions_otr': transactions_otr,
-    #             'acc': acc}
-    #         )
-    #     else:
-    #         return redirect('create_account')
-    # else:
-    print(request.GET.values())
+def get_info(request):
+    print(request.get_full_path())
+    if request.get_full_path() == '/info/':
+        accs = Account.objects.filter(user_id=request.user.id).values('acc_id', 'acc_name', 'total')
+        charges = Charge.objects.filter(account__user_id_id=request.user.id)
+        transactions_pol = [i for i in charges if i.value > 0]
+        transactions_otr = [i for i in charges if i.value < 0]
+        return render(
+            request, 'get_info.html',
+            {'transactions_pol': transactions_pol,
+             'transactions_otr': transactions_otr,
+             'accs': accs,
+             }
+        )
 
-    # Проверка на то, что переданы именно эти параметры
-    if request.GET.values():
-        # Проверка на то что переданный айди акка принадлежит залогиненному пользователю и далее вывод информации
-        pass
+    acc=request.GET.get('account')
+    start_date=request.GET.get('date-start')
+    end_date=request.GET.get('date-end')
 
-    # Это ветка else первого if по сути
+    if acc == 'all':
+        accs = Account.objects.filter(user_id=request.user.id).values('acc_id', 'acc_name', 'total')
+        charges = Charge.objects.filter(account__user_id=request.user.id, date__lte=end_date, date__gte=start_date)
+        transactions_pol = [i for i in charges if i.value > 0]
+        transactions_otr = [i for i in charges if i.value < 0]
+        return render(
+            request, 'get_info.html',
+            {'transactions_pol': transactions_pol,
+             'transactions_otr': transactions_otr,
+             'accs': accs,
+             }
+        )
+    if Account.objects.get(acc_id=acc).user_id_id!=request.user.id:
+        return redirect('/info/')
+
     accs = Account.objects.filter(user_id=request.user.id).values('acc_id', 'acc_name', 'total')
-    charges = Charge.objects.filter(account__user_id_id=request.user.id)
+    charges = Charge.objects.filter(account=acc, date__lte=end_date, date__gte=start_date)
     transactions_pol = [i for i in charges if i.value > 0]
     transactions_otr = [i for i in charges if i.value < 0]
     return render(
         request, 'get_info.html',
         {'transactions_pol': transactions_pol,
-         'transactions_otr': transactions_otr,
+        'transactions_otr': transactions_otr,
          'accs': accs,
          }
     )
