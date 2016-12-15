@@ -43,7 +43,7 @@ class UserProfile(AbstractUser):
         max_length=255,
         unique=True,
     )
-    username = models.CharField('username', max_length=255, unique=False, default='user')
+    username = models.CharField('phone', max_length=255, unique=False, default='user')
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today())
     USERNAME_FIELD = 'email'

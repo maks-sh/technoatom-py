@@ -39,7 +39,7 @@ def user_edit(request):
     return render(request, 'edit_profile.html', args)
 
 @transaction.atomic()
-def confirmation(request,activ_key):
+def confirmation(request, activ_key):
     if UserProfile.objects.filter(activation_key=activ_key).exists():
         user = UserProfile.objects.get(activation_key=activ_key)
         user.is_active=True
@@ -135,7 +135,7 @@ def create_account(request):
             account.user_id=UserProfile.objects.get(id=request.user.id)
             account.save()
             print(account.acc_id)
-            return redirect('get_info', account.acc_id)
+            return redirect('get_info')
         else:
             info = 'Форма заполнена некорректно'
 
@@ -214,6 +214,9 @@ def get_info(request):
         charges = Charge.objects.filter(account__user_id=request.user.id, date__lte=end_date, date__gte=start_date)
         transactions_pol = [i for i in charges if i.value > 0]
         transactions_otr = [i for i in charges if i.value < 0]
+        # print(charges)
+        # for crg in charges:
+        #     print(crg.account_id)
         return render(
             request, 'get_info.html',
             {'transactions_pol': transactions_pol,

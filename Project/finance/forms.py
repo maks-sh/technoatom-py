@@ -152,12 +152,6 @@ class UserCreateForm(ModelForm):
 
         fields = ['email', 'phone', 'last_name', 'first_name']
 
-    def clean_phone(self):
-        telephone = self.cleaned_data.get('phone')
-        p = re.compile(r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$')
-        result = p.match(telephone)
-        # if
-
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")

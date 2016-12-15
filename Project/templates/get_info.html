@@ -44,9 +44,6 @@
                         <a href="/del-chg/{{ transaction.ch_id }}">
                             <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-edit-icon">
                         </a>
-                        <a href="/edit-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-edit-icon edit-icon">
-                        </a>
 
                     </li>
                 {% if forloop.last %}
@@ -64,9 +61,6 @@
                         {{ transaction.date }} списание: {{ transaction.value }}
                         <a href="/del-chg/{{ transaction.ch_id }}">
                             <img src="{% static "img/del-btn.svg" %}" alt="Удалить" class="del-edit-icon">
-                        </a>
-                        <a href="/edit-chg/{{ transaction.ch_id }}">
-                            <img src="{% static "img/edit-btn.svg" %}" alt="Изменить" class="del-edit-icon edit-icon">
                         </a>
                     </li>
                 {% if forloop.last %}
