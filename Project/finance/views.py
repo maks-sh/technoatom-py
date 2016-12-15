@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
 from .forms import *
+from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile, FilterForm, UpdateAccount
 from .models import Account, Charge, UserProfile
 from .serializers import AccountSerializer
 from rest_framework import viewsets
@@ -20,7 +21,6 @@ from django.views.generic.edit import FormView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.mail import send_mail
 
-#TODO сделать редактирование нормально, погуглить
 @login_required()
 def user_edit(request):
     args = {}
@@ -228,13 +228,37 @@ def get_info(request, acc=0):
 
 @login_required()
 @transaction.atomic()
-def get_stat(request, acc):
-    if Account.objects.filter(acc_id=acc).exists():
+def get_stat(request, acc=0):
+    if acc !=0:
+        if not Account.objects.filter(acc_id=acc).exists():
+            return redirect('start')
+        if Account.objects.get(acc_id=acc).user_id != request.user.id:
+            return redirect('start')
+        if Account.objects.filter(acc_id=acc).exists():
+            change_by_month = Charge.objects \
+                .filter(account_id=acc) \
+                .annotate(month=Trunc('date', 'month')) \
+                .values('month') \
+                .annotate(c=Count('id')) \
+                .annotate(s=Sum('value')) \
+                .values('month', 'c', 's') \
+                .order_by('month')
+            # todo вставить недостающие элементы в список, т.е. вставить месяцы, когда не происходило транзакций
+            return render(
+                request, 'get_stat.html',
+                {'acc': acc,
+                 'amount': Account.objects.get(acc_id=acc).total,
+                 'stat_data': change_by_month
+                 }
+            )
+        else:
+            return redirect('create_account')
+    else:
         change_by_month = Charge.objects \
-            .filter(account_id=acc) \
+            .filter(account_id__in=Account.objects.filter(user_id=request.user.id)) \
             .annotate(month=Trunc('date', 'month')) \
             .values('month') \
-            .annotate(c=Count('id')) \
+            .annotate(c=Count('ch_id')) \
             .annotate(s=Sum('value')) \
             .values('month', 'c', 's') \
             .order_by('month')
@@ -242,12 +266,10 @@ def get_stat(request, acc):
         return render(
             request, 'get_stat.html',
             {'acc': acc,
-             'amount': Account.objects.get(acc_id=acc).total,
+             'amount': Account.objects.values('user_id').annotate(Sum('total')).get(user_id=request.user.id)['total__sum'],
              'stat_data': change_by_month
              }
         )
-    else:
-        return redirect('create_account')
 
 # todo сделать проверку на существование счета как декаратор
 
@@ -265,18 +287,26 @@ def start_page(request):
             {'accs': accs}
         )
 
+
 @login_required()
 @transaction.atomic()
 def del_acc(request, acc):
+    if not Account.objects.filter(acc_id=acc).exists():
+        return redirect('start')
+
     if acc in [str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).all().values('acc_id')]:
         Account.objects.filter(acc_id=acc).delete()
         return redirect('/start/')
     else:
-        redirect('/create-account/')
+        return redirect('start')
+
 
 @login_required()
 @transaction.atomic()
 def del_charge(request, chg):
+    if not Charge.objects.filter(ch_id=chg).exists():
+        return redirect('start')
+    #TODO исправить условие
     if chg in [str(charge['ch_id']) for charge in Charge.objects.filter(account__in=[str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).values('acc_id')]).values('ch_id')]:
         acc = Charge.objects.filter(ch_id=chg).values('account', 'value')[0]
         print(acc)
@@ -287,7 +317,26 @@ def del_charge(request, chg):
     else:
         redirect('/create-account/')
 
+@login_required()
+def acc_edit(request, acc):
+    args = {}
+    if not Account.objects.filter(acc_id=acc).exists():
+        return redirect('start')
+    if not acc in [str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).all().values('acc_id')]:
+        return redirect('start')
+    if request.method == 'POST':
+        form = UpdateAccount(request.POST,instance=Account.objects.get(acc_id=acc))
+        if form.is_valid():
+            print("Succ!")
+            form.save()
+            return redirect('start')
+    else:
+        form = UpdateAccount(instance=Account.objects.get(acc_id=acc))
+    args['form'] = form
+    return render(request, 'edit_account.html', args)
 
+# @login_required()
+# def chg_edit(request, chg):
 class AccountViewSet(viewsets.ViewSet):
 
     def list(self, request):
@@ -295,3 +344,5 @@ class AccountViewSet(viewsets.ViewSet):
         permission_classes = [permissions.IsAuthenticated]
         queryset = Account.objects.all()
         # queryset = Account.objects.filter(user_id=self.request.user.id)
+        redirect('start')
+

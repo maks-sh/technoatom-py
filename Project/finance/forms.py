@@ -181,6 +181,11 @@ class UpdateProfile(ModelForm):
         model = UserProfile
         fields = ['first_name', 'last_name', 'phone']
 
+class UpdateAccount(ModelForm):
+    class Meta:
+        model = Account
+        fields = ['acc_name','total']
+
 
 class FilterForm(Form):
 
