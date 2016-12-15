@@ -24,5 +24,5 @@ urlpatterns = [
     # url(r'^edit-chg/(?P<chg>\d{1,10})/$', chg_edit, name='edit_charge'),
 
 
-    url(r'^api/user/(?P<id>\d+)/accounts.json$', AccountViewSet.as_view({'get': 'list'})),
+    # url(r'^api/user/(?P<id>\d+)/accounts/.json$', AccountViewSet.as_view({'get': 'list'})),
 ]
