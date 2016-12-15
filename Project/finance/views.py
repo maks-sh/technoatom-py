@@ -4,8 +4,11 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, redirect, HttpResponseRedirect
 from django.db.models import Count, Sum
-from .forms import ChargeForm, AccountForm, UserCreateForm, UpdateProfile, FilterForm
+from .forms import *
 from .models import Account, Charge, UserProfile
+from .serializers import AccountSerializer
+from rest_framework import viewsets
+from rest_framework import generics, permissions
 from django.db.models.functions import Trunc
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
@@ -189,36 +192,41 @@ def charges_form(request):
 @transaction.atomic()
 @login_required()
 def get_info(request, acc=0):
-    if acc !=0:
-        if not Account.objects.filter(acc_id=acc).exists():
-            return redirect('start')
-        if Account.objects.get(acc_id=acc).user_id != request.user.id:
-            return redirect('start')
-        if Account.objects.filter(acc_id=acc).exists():
-            charges = Charge.objects.filter(account=acc)
-            print(charges)
-            transactions_pol = [i for i in charges if i.value > 0]
-            transactions_otr = [i for i in charges if i.value < 0]
-            return render(
-                request, 'get_info.html',
-                {'transactions_pol': transactions_pol,
-                'transactions_otr': transactions_otr,
-                'acc': acc}
-            )
-        else:
-            return redirect('create_account')
-    else:
-        charges = Charge.objects.filter(account__user_id_id=request.user.id)
-        print(charges)
-        transactions_pol = [i for i in charges if i.value > 0]
-        transactions_otr = [i for i in charges if i.value < 0]
-        return render(
-            request, 'get_info.html',
-            {'transactions_pol': transactions_pol,
-             'transactions_otr': transactions_otr,
-             'acc': acc}
-        )
+    #
+    # if acc !=0:
+    #     if not Account.objects.filter(acc_id=acc).exists():
+    #         return redirect('start')
+    #     if Account.objects.get(acc_id=acc).user_id != request.user.id:
+    #         return redirect('start')
+    #     if Account.objects.filter(acc_id=acc).exists():
+    #         charges = Charge.objects.filter(account=acc)
+    #         print(charges)
+    #         transactions_pol = [i for i in charges if i.value > 0]
+    #         transactions_otr = [i for i in charges if i.value < 0]
+    #         return render(
+    #             request, 'get_info.html',
+    #             {'transactions_pol': transactions_pol,
+    #             'transactions_otr': transactions_otr,
+    #             'acc': acc}
+    #         )
+    #     else:
+    #         return redirect('create_account')
+    # else:
+    form = FilterForm()
+    print(form)
+    # form.fields['account'].queryset = Account.objects.filter(user_id=request.user.id)
+    charges = Charge.objects.filter(account__user_id_id=request.user.id)
+    transactions_pol = [i for i in charges if i.value > 0]
+    transactions_otr = [i for i in charges if i.value < 0]
+    return render(
+        request, 'get_info.html',
+        {'transactions_pol': transactions_pol,
+         'transactions_otr': transactions_otr,
+         'acc': acc,
+         'form': form}
+    )
 
+@login_required()
 @transaction.atomic()
 def get_stat(request, acc):
     if Account.objects.filter(acc_id=acc).exists():
@@ -243,6 +251,7 @@ def get_stat(request, acc):
 
 # todo сделать проверку на существование счета как декаратор
 
+@login_required()
 @transaction.atomic()
 def start_page(request):
     if not Account.objects.filter(user_id=request.user.id).exists():
@@ -256,6 +265,7 @@ def start_page(request):
             {'accs': accs}
         )
 
+@login_required()
 @transaction.atomic()
 def del_acc(request, acc):
     if acc in [str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).all().values('acc_id')]:
@@ -264,7 +274,7 @@ def del_acc(request, acc):
     else:
         redirect('/create-account/')
 
-
+@login_required()
 @transaction.atomic()
 def del_charge(request, chg):
     if chg in [str(charge['ch_id']) for charge in Charge.objects.filter(account__in=[str(acc['acc_id']) for acc in Account.objects.filter(user_id=request.user.id).values('acc_id')]).values('ch_id')]:
@@ -276,3 +286,12 @@ def del_charge(request, chg):
         return redirect('/info/')
     else:
         redirect('/create-account/')
+
+
+class AccountViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        serializer_class = AccountSerializer
+        permission_classes = [permissions.IsAuthenticated]
+        queryset = Account.objects.all()
+        # queryset = Account.objects.filter(user_id=self.request.user.id)

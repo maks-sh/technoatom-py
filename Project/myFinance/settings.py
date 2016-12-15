@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'finance',
 ]
 
@@ -111,6 +112,21 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSIONS_CLASSES': [
+        'rest_framework.permissions.IasAuthenticated',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_RENDERER_CLASSES':[
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}
 
 AUTH_USER_MODEL = 'finance.UserProfile'
 

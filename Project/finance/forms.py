@@ -183,8 +183,9 @@ class UpdateProfile(ModelForm):
 
 
 class FilterForm(Form):
-    date1 = DateInput()
-    date2 = DateInput()
+
+    # date1 = DateInput()
+    # date2 = DateInput()
     class Meta:
         model = Charge
         fields = ['account']

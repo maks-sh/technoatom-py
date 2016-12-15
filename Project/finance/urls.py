@@ -21,4 +21,6 @@ urlpatterns = [
     # url(r'^edit-acc/(?P<acc>\d{1,10})/$', edit_acc, name='edit_account'),
     url(r'^del-chg/(?P<chg>\d{1,10})/$', del_charge, name='delete_charge'),
 
+
+    url(r'^api/user/(?P<id>\d+)/accounts.json$', AccountViewSet.as_view({'get': 'list'})),
 ]

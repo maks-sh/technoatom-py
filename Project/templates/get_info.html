@@ -11,6 +11,10 @@
 {% endblock %}
 
 {% block content %}
+    <div class="filters">
+        {{ form }}
+    </div>
+
     <div class="main__transactions transactions">
     {% for transaction in data %}
         {{ transaction.value }}

@@ -8,6 +8,8 @@
 
 {% block css %}
     <link rel="stylesheet" media="screen" href="{% static "css/charges_form.css" %}">
+    <link rel="stylesheet" media="screen" href="{% static "css/edit_user.css" %}">
+    <link rel="stylesheet" media="screen" href="{% static "css/modal_window.css"%}">
 {% endblock %}
 
 {% block content %}
@@ -40,13 +42,20 @@
         {% endif %}
 
         <button class="form__submit" type="submit">Отправить</button>
-
-            <a href="" class="delete-user"></a>
+            <a href="#del" class="delete-user open-modal">Удалить пользователя</a>
     </form>
 
+    <div id="del" class="modal">
+        <div class="modal__content">
+            <a href="" class="modal-content__close-btn"></a>
+            <h4 class="modal__title">Вы уверены что хотите удалить аккаунт?</h4>
+            <a href="/del-usr/{{ user.id }}" class="delete-user forever">Удалить безвозвратно</a>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
      <script src="{% static "js/edit_user.js"%}"></script>
+     <script src="{% static "js/modal_window.js"%}"></script>
 {% endblock %}

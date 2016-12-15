@@ -1,0 +1,21 @@
+.delete-user {
+    margin: 30px auto 0 auto;
+    padding: 13px 10px;
+    font-weight: 100;
+    color: white;
+    border-radius: 10px;
+    border: hidden;
+    background: rgba(227, 30, 37, 0.5);
+    transition: 0.2s;
+}
+
+.delete-user:hover {
+    background: rgb(227, 57, 48);
+    cursor: pointer;
+}
+
+.forever {
+    margin-top: 30%;
+    display: block;
+    width: 152px;
+}
