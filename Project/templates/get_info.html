@@ -19,8 +19,8 @@
                 <option value="{{ acc.acc_id }}">{{ acc.acc_name }}</option>
             {% endfor %}
         </select>
-        <input type="date" name="date-start" class="filters__input" required>
-        <input type="date" name="date-end" class="filters__input" required>
+        <input id="date-start" type="date" name="date-start" class="filters__input" required>
+        <input id="date-end" type="date" name="date-end" class="filters__input" required>
         <button class="filter__submit">Применить фильтры</button>
     </form>
 
@@ -70,4 +70,8 @@
         {% endif %}
     {% endif %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/get_info.js"%}"></script>
 {% endblock %}
